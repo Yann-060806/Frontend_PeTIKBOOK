@@ -1,0 +1,79 @@
+.navbar-pill {
+  background: linear-gradient(135deg, #0095ff, #0077cc);
+  border-radius: 50px;
+  border: none;
+  padding: 12px 24px;
+}
+
+.navbar-pill .nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: white !important;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-pill .nav-link:hover {
+  opacity: 1;
+  color: #adff2f !important;
+}
+
+.navbar-pill .nav-link.active {
+  color: #adff2f !important;
+}
+
+.navbar-pill .nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background-color: #adff2f;
+  border-radius: 10px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border: 2px solid white;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.08);
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 160px;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background: #f3f7ff;
+}
+
+.logout {
+  color: red;
+}
