@@ -99,25 +99,29 @@ const Home = () => {
             </h2>
           </div>
           <Row className="g-4">
-            {buku.map((item) => (
-              <Col md="3" key={item.id}>
-                <div className="book-card">
-                  <div className="book-img-wrapper">
-                    <img src={item.foto} />
+            {buku
+              .slice()
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .slice(0, 4)
+              .map((item) => (
+                <Col md="3" key={item.id}>
+                  <div className="book-card">
+                    <div className="book-img-wrapper">
+                      <img src={item.foto} />
 
-                    <div className="overlay">
-                      <button className="detail-btn">DETAIL BUKU</button>
+                      <div className="overlay">
+                        <button className="detail-btn">DETAIL BUKU</button>
+                      </div>
+                    </div>
+
+                    <div className="book-info">
+                      <h6>{item.judul_buku}</h6>
+                      <span>{namePenulis(item.penulis_id)}</span>
+                      <button className="pinjam-btn">Pinjam</button>
                     </div>
                   </div>
-
-                  <div className="book-info">
-                    <h6>{item.judul_buku}</h6>
-                    <span>{namePenulis(item.penulis_id)}</span>
-                    <button className="pinjam-btn">Pinjam</button>
-                  </div>
-                </div>
-              </Col>
-            ))}
+                </Col>
+              ))}
           </Row>
         </Container>
       </section>

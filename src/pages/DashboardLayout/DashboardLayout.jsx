@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import MyNavbar from "../../components/MyNavbar/MyNavbar";
+import NavbarAdmin from "../../components/NavbarAdmin/NavbarAdmin";
 import "./DashboardLayout.css";
 import { Outlet } from "react-router-dom";
 
@@ -8,15 +8,15 @@ const DashboardLayout = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <div>
-      <div className="dashboard-layout">
-        <Sidebar />
-        <div className="dashboard-main">
-          <main className="dashboard-content">
-            <MyNavbar search={search} setSearch={setSearch} />
-            <Outlet context={{ search }} />
-          </main>
-        </div>
+    <div className="dashboard-layout">
+      <Sidebar />
+
+      <div className="dashboard-main">
+        <NavbarAdmin search={search} setSearch={setSearch} />
+
+        <main className="dashboard-content">
+          <Outlet context={{ search }} />
+        </main>
       </div>
     </div>
   );

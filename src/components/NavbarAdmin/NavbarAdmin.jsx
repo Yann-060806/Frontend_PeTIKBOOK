@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import profil from "../../assets/monyet.png";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const NavbarAdmin = ({ search, setSearch }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   const getUserLogin = () => {
@@ -41,25 +41,22 @@ const NavbarAdmin = ({ search, setSearch }) => {
         </li>
 
         <li className="navbar-right">
-          <div
-            className="avatar-wrapper"
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpen((prev) => !prev);
-            }}
-          >
-            <img src={profil} alt="profile" className="avatar" />
+          <div className="user-info">
+            <span>{username}</span>
+
+            <img
+              src={profil}
+              alt="User"
+              className="avatar"
+              onClick={() => setOpen(!open)}
+            />
 
             {open && (
-              <div className="dropdown-menu">
-                <div className="dropdown-item">{username}</div>
-                <div className="dropdown-item">Profile</div>
-                <div
-                  className="dropdown-item logout-item"
-                  onClick={handleLogout}
-                >
+              <div className="dropdown-menu-custom">
+                <button className="dropdown-item">Profile</button>
+                <button className="dropdown-item logout" onClick={handleLogout}>
                   Logout
-                </div>
+                </button>
               </div>
             )}
           </div>
