@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editPelanggan from "../../assets/monyet.png";
 import axiosInstance from "../../utils/axiosInstance";
+import "./EditPenerbit.css";
 
 const EditPenerbit = () => {
   const navigate = useNavigate();

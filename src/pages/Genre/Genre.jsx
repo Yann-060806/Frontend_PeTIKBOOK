@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import "./Genre.css";
 
 const Genre = () => {
   const [genre, setGenre] = useState([]);

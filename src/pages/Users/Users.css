@@ -1,21 +1,17 @@
-.buku-header,
-.produk-header-tambah,
-.buku-header-tambah {
+.users-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.buku-header h3,
-.produk-header-tambah h3,
-.buku-header-tambah h3 {
+.users-header h3 {
   font-size: 18px;
   font-weight: 500;
   color: #0c447c;
 }
 
-.buku-header a {
+.users-header a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -29,7 +25,7 @@
   transition: background 0.15s;
 }
 
-.buku-header a:hover {
+.users-header a:hover {
   background: #0c447c;
 }
 
@@ -84,13 +80,6 @@
   display: block;
 }
 
-.table-wrapper td:nth-child(4) {
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .btn-edit,
 .btn-delete,
 .btn-tambah {
@@ -123,27 +112,6 @@
 
 .btn-delete:hover {
   background: #f7c1c1;
-}
-
-.btn-tambah {
-  background: #185fa5;
-  color: #ffffff;
-  min-width: 100px;
-}
-
-.btn-tambah:hover {
-  background: #0c447c;
-}
-
-.btn-tambah:disabled {
-  background: #b5d4f4;
-  cursor: not-allowed;
-}
-
-.btn-edit:active,
-.btn-delete:active,
-.btn-tambah:active {
-  transform: scale(0.97);
 }
 
 .pagination {
@@ -182,4 +150,16 @@
   color: #ffffff;
   border-color: #185fa5;
   cursor: default;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    font-size: 12px;
+  }
+
+  .btn-page {
+    min-width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
 }

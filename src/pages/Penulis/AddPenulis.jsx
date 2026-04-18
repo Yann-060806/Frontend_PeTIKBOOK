@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import "./AddPenulis.css";
 
 const AddPenulis = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const AddPenulis = () => {
   return (
     <div className="penulis-page">
       <div className="users-header">
-        <h3>Tambah Kategori</h3>
+        <h3>Tambah Penulis</h3>
       </div>
       <form onSubmit={handleSubmit} className="from-wrapper">
         <div className="from-grid">

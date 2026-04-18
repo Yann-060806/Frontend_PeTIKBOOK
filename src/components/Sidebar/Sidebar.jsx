@@ -1,7 +1,15 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../../assets/monyet.png";
-import { FaBook, FaUser, FaHome, FaChevronDown } from "react-icons/fa";
+import {
+  FaBook,
+  FaPen,
+  FaBuilding,
+  FaUser,
+  FaChevronDown,
+  FaList,
+} from "react-icons/fa";
+import { IoStatsChartSharp } from "react-icons/io5";
 import { useState } from "react";
 
 const Sidebar = () => {
@@ -13,6 +21,7 @@ const Sidebar = () => {
         <img src={logo} alt="logo" />
         <h3>PeTIK Book</h3>
       </div>
+      <hr />
 
       <ul>
         <li>
@@ -21,7 +30,7 @@ const Sidebar = () => {
             className={({ isActive }) => (isActive ? "active-link" : "")}
             end
           >
-            <FaHome /> Dashboard
+            <IoStatsChartSharp /> Dashboard
           </NavLink>
         </li>
 
@@ -46,19 +55,29 @@ const Sidebar = () => {
           {openMaster && (
             <ul className="submenu">
               <li>
-                <NavLink to="/dashboard/buku">Buku</NavLink>
+                <NavLink to="/dashboard/buku">
+                  <FaBook /> Buku
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/penulis">Penulis</NavLink>
+                <NavLink to="/dashboard/penulis">
+                  <FaPen /> Penulis
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/penerbit">Penerbit</NavLink>
+                <NavLink to="/dashboard/penerbit">
+                  <FaBuilding /> Penerbit
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/genre">Genre</NavLink>
+                <NavLink to="/dashboard/genre">
+                  <FaList /> Genre
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/users">User</NavLink>
+                <NavLink to="/dashboard/users">
+                  <FaUser /> User
+                </NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/history">History</NavLink>

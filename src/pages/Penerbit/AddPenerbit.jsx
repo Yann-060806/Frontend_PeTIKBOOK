@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import "./AddPenerbit.css";
 
 const AddPenerbit = () => {
   const navigate = useNavigate();

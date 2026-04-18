@@ -75,6 +75,21 @@ const DaftarBuku = () => {
 
         <div className="filter-scroll mt-4"></div>
       </Container>
+      <Container>
+        <Row>
+          <Col md={12}>
+            {kategori.map((c) => (
+              <Button
+                color="primary"
+                outline
+                className="me-2 rounded-pill mt-2"
+              >
+                {c.nama_genre}
+              </Button>
+            ))}
+          </Col>
+        </Row>
+      </Container>
 
       <Container className="mt-5">
         <div className="d-flex justify-content-between align-items-center mb-4">

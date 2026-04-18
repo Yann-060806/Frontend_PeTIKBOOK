@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
+import "./Users.css";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -51,7 +52,7 @@ const Users = () => {
 
   return (
     <div>
-      <div className="kategori-header">
+      <div className="users-header">
         <h3>Daftar User</h3>
         <NavLink to={"/dashboard/users/add"}>
           <FaPlusCircle /> Tambah User

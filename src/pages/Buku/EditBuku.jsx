@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editProduk from "../../assets/monyet.png";
 import axiosInstance from "../../utils/axiosInstance";
+import "./EditBuku.css";
 
 const EditBuku = () => {
   const navigate = useNavigate();
@@ -115,11 +116,11 @@ const EditBuku = () => {
 
   return (
     <div>
-      <div className="kategori-header-tambah">
+      <div className="buku-header-tambah">
         <h3>Edit Buku</h3>
       </div>
 
-      <div className="add-kategori-layout">
+      <div className="add-buku-layout">
         <div className="image-side">
           <img src={editProduk} alt="preview" />
         </div>

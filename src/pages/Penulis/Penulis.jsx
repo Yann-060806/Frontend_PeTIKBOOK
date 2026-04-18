@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import "./Penulis.css";
 
 const Penulis = () => {
   const [penulis, setPenulis] = useState([]);
@@ -70,11 +71,11 @@ const Penulis = () => {
           <thead>
             <tr>
               <th>No</th>
+              <th>Foto</th>
               <th>Nama</th>
               <th>Alamat</th>
               <th>Email</th>
               <th>Nomor Hp</th>
-              <th>Gambar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -82,16 +83,23 @@ const Penulis = () => {
             {paginatedData.map((p, index) => (
               <tr key={index}>
                 <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                <td>
+                  <img src={p.profil} alt="gambar" width={120} />
+                </td>
                 <td>{p.nama_penulis}</td>
                 <td>{p.alamat}</td>
                 <td>{p.email}</td>
                 <td>{p.no_hp}</td>
                 <td>
-                  <img src={p.profil} alt="gambar" width={120} />
-                </td>
-                <td>
-                  <button onClick={() => handleEdit(p.id)}>Edit</button>
-                  <button onClick={() => handleDelete(p.id)}>Delete</button>
+                  <button className="btn-edit" onClick={() => handleEdit(p.id)}>
+                    Edit
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(p.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

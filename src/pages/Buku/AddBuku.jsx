@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import addProductt from "../../assets/monyet.png";
 import axiosInstance from "../../utils/axiosInstance";
+import "./AddBuku.css";
 
 const AddBuku = () => {
   const navigate = useNavigate();

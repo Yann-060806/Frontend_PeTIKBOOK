@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import editPelanggan from "../../assets/monyet.png";
 import axiosInstance from "../../utils/axiosInstance";
+import "./AddPenulis.css";
 
 const EditPenulis = () => {
   const navigate = useNavigate();
@@ -66,11 +67,11 @@ const EditPenulis = () => {
 
   return (
     <div>
-      <div className="pelanggan-header-tambah">
+      <div className="penulis-header-tambah">
         <h3>Edit Pelanggan</h3>
       </div>
 
-      <div className="add-pelanggan-layout">
+      <div className="add-penulis-layout">
         <div className="image-side">
           <img src={editPelanggan} alt="preview" />
         </div>

@@ -1,21 +1,17 @@
-.buku-header,
-.produk-header-tambah,
-.buku-header-tambah {
+.genre-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.buku-header h3,
-.produk-header-tambah h3,
-.buku-header-tambah h3 {
+.genre-header h3 {
   font-size: 18px;
   font-weight: 500;
   color: #0c447c;
 }
 
-.buku-header a {
+.genre-header a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -29,7 +25,7 @@
   transition: background 0.15s;
 }
 
-.buku-header a:hover {
+.genre-header a:hover {
   background: #0c447c;
 }
 
@@ -75,25 +71,7 @@
   background: #f7fafd;
 }
 
-.table-wrapper td img {
-  width: 64px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 0.5px solid rgba(0, 0, 0, 0.08);
-  display: block;
-}
-
-.table-wrapper td:nth-child(4) {
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn-edit,
-.btn-delete,
-.btn-tambah {
+.table-wrapper td button {
   display: inline-block;
   padding: 6px 14px;
   font-size: 12px;
@@ -106,43 +84,26 @@
     transform 0.1s;
 }
 
-.btn-edit {
+.table-wrapper td button:first-child {
   background: #e6f1fb;
   color: #185fa5;
   margin-right: 6px;
 }
 
-.btn-edit:hover {
+.table-wrapper td button:first-child:hover {
   background: #b5d4f4;
 }
 
-.btn-delete {
+.table-wrapper td button:last-child {
   background: #fdf0f0;
   color: #c0392b;
 }
 
-.btn-delete:hover {
+.table-wrapper td button:last-child:hover {
   background: #f7c1c1;
 }
 
-.btn-tambah {
-  background: #185fa5;
-  color: #ffffff;
-  min-width: 100px;
-}
-
-.btn-tambah:hover {
-  background: #0c447c;
-}
-
-.btn-tambah:disabled {
-  background: #b5d4f4;
-  cursor: not-allowed;
-}
-
-.btn-edit:active,
-.btn-delete:active,
-.btn-tambah:active {
+.table-wrapper td button:active {
   transform: scale(0.97);
 }
 

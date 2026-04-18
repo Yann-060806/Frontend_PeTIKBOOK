@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import "./Penerbit.css";
 
 const Penerbit = () => {
   const [penerbit, setPenerbit] = useState([]);
@@ -70,10 +71,10 @@ const Penerbit = () => {
           <thead>
             <tr>
               <th>No</th>
+              <th>Foto</th>
               <th>Nama</th>
               <th>Email</th>
               <th>Nomor Hp</th>
-              <th>Gambar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -81,15 +82,22 @@ const Penerbit = () => {
             {paginatedData.map((p, index) => (
               <tr key={index}>
                 <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                <td>
+                  <img src={p.profil} alt="gambar" width={120} />
+                </td>
                 <td>{p.nama_penerbit}</td>
                 <td>{p.email}</td>
                 <td>{p.no_hp}</td>
                 <td>
-                  <img src={p.profil} alt="gambar" width={120} />
-                </td>
-                <td>
-                  <button onClick={() => handleEdit(p.id)}>Edit</button>
-                  <button onClick={() => handleDelete(p.id)}>Delete</button>
+                  <button className="btn-edit" onClick={() => handleEdit(p.id)}>
+                    Edit
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(p.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
