@@ -1,32 +1,17 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
 .dashboard-layout {
   display: flex;
   height: 100vh;
-  background: #f4f4f4;
-  overflow: hidden;
+  background: #f8fafc;
 }
 
 .dashboard-main {
   flex: 1;
   display: flex;
-  overflow: hidden;
+  flex-direction: column;
 }
 
 .dashboard-content {
-  flex: 1;
-  padding: 16px;
+  margin-top: 70px;
+  padding: 20px;
   overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* Desktop */
-@media (min-width: 768px) {
-  .dashboard-content {
-    padding: 24px;
-  }
 }
