@@ -5,6 +5,8 @@ import Login from "./pages/Login/Login.jsx";
 import DashboardLayout from "./pages/DashboardLayout/DashboardLayout.jsx";
 import Users from "./pages/Users/Users.jsx";
 import AddUsers from "./pages/Users/AddUsers.jsx";
+import AjukanPinjam from "./pages/AjukanPinjam/AjukanPinjam.jsx";
+import StatusPeminjaman from "./pages/StatusPeminjaman/StatusPeminjaman.jsx";
 
 function App() {
   return (
@@ -12,6 +14,10 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/daftarbuku" element={<DaftarBuku />} />
+      <Route path="/peminjaman" element={<AjukanPinjam />} />
+      <Route path="/statusPeminjaman" element={<StatusPeminjaman />} />
+      
+      
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route element={<h1>Dashboard</h1>} />
