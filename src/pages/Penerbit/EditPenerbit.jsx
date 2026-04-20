@@ -23,7 +23,7 @@ const EditPenerbit = () => {
   const getPenulisById = async () => {
     setLoading(true);
     try {
-      const penerbit = await axiosInstance.get(`/api/penerbit/cari/${id}`);
+      const penerbit = await axiosInstance.get(`/penerbit/cari/${id}`);
       console.log(penerbit.data.data);
 
       setNamaPenerbit(penerbit.data.data.nama_penerbit);
@@ -42,7 +42,7 @@ const EditPenerbit = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axiosInstance.patch(`/api/penerbit/update/${id}`, {
+      await axiosInstance.patch(`/penerbit/update/${id}`, {
         nama_penerbit: namaPenerbit,
         email,
         no_hp: noHp,

@@ -17,7 +17,7 @@ const Penulis = () => {
   const getPenulis = async () => {
     setLoading(true);
     try {
-      const result = await axiosInstance.get("/api/penulis");
+      const result = await axiosInstance.get("/penulis");
       setPenulis(result.data.data);
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ const Penulis = () => {
     const msg = window.confirm("Apakah yakin ingin menghapus penulis ini?");
     if (!msg) return;
     try {
-      await axiosInstance.delete(`/api/penulis/delete/${id}`);
+      await axiosInstance.delete(`/penulis/delete/${id}`);
       getPenulis();
     } catch (error) {
       console.log(error);
@@ -80,29 +80,38 @@ const Penulis = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((p, index) => (
-              <tr key={index}>
-                <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                <td>
-                  <img src={p.profil} alt="gambar" width={120} />
-                </td>
-                <td>{p.nama_penulis}</td>
-                <td>{p.alamat}</td>
-                <td>{p.email}</td>
-                <td>{p.no_hp}</td>
-                <td>
-                  <button className="btn-edit" onClick={() => handleEdit(p.id)}>
-                    Edit
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(p.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((p, index) => (
+                <tr key={index}>
+                  <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                  <td>
+                    <img src={p.profil} alt="gambar" width={120} />
+                  </td>
+                  <td>{p.nama_penulis}</td>
+                  <td>{p.alamat}</td>
+                  <td>{p.email}</td>
+                  <td>{p.no_hp}</td>
+                  <td>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(p.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(p.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>Maaf, data penulis tidak ditemukan</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

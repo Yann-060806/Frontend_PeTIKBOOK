@@ -20,7 +20,7 @@ const EditGenre = () => {
   const getGenreById = async () => {
     setLoading(true);
     try {
-      const genre = await axiosInstance.get(`/api/genre/cari/${id}`);
+      const genre = await axiosInstance.get(`/genre/cari/${id}`);
       console.log(genre.data.data);
 
       setNamaGenre(genre.data.data.nama_genre);
@@ -37,7 +37,7 @@ const EditGenre = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axiosInstance.patch(`/api/genre/ubah/${id}`, {
+      await axiosInstance.patch(`/genre/ubah/${id}`, {
         nama_genre: namaGenre,
         deskripsi,
       });

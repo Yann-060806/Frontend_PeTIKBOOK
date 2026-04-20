@@ -20,7 +20,7 @@ const AddGenre = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axiosInstance.post("/api/genre/tambah", {
+      await axiosInstance.post("/genre/tambah", {
         nama_genre: namaGenre,
         deskripsi,
       });

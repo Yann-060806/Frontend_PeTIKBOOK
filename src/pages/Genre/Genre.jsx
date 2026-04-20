@@ -17,7 +17,7 @@ const Genre = () => {
   const getGenre = async () => {
     setLoading(true);
     try {
-      const result = await axiosInstance.get("/api/genre");
+      const result = await axiosInstance.get("/genre");
       setGenre(result.data.data);
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ const Genre = () => {
     const msg = window.confirm("Apakah yakin ingin menghapus genre ini?");
     if (!msg) return;
     try {
-      await axiosInstance.delete(`/api/genre/hapus/${id}`);
+      await axiosInstance.delete(`/genre/hapus/${id}`);
       getGenre();
     } catch (error) {
       console.log(error);
@@ -77,17 +77,23 @@ const Genre = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((g, index) => (
-              <tr key={index}>
-                <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                <td>{g.nama_genre}</td>
-                <td>{g.deskripsi}</td>
-                <td>
-                  <button onClick={() => handleEdit(g.id)}>Edit</button>
-                  <button onClick={() => handleDelete(g.id)}>Delete</button>
-                </td>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((g, index) => (
+                <tr key={index}>
+                  <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                  <td>{g.nama_genre}</td>
+                  <td>{g.deskripsi}</td>
+                  <td>
+                    <button onClick={() => handleEdit(g.id)}>Edit</button>
+                    <button onClick={() => handleDelete(g.id)}>Delete</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>Maaf, data genre tidak ditemukan</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

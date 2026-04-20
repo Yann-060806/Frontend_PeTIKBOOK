@@ -25,7 +25,7 @@ const AddPenerbit = () => {
     setErrors({});
     try {
       await axiosInstance.post(
-        "/api/penerbit/create",
+        "/penerbit/create",
         {
           nama_penerbit: namaPenerbit,
           email,

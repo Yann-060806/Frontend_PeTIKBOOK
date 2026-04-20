@@ -24,7 +24,7 @@ const EditPenulis = () => {
   const getPenulisById = async () => {
     setLoading(true);
     try {
-      const penulis = await axiosInstance.get(`/api/penulis/cari/${id}`);
+      const penulis = await axiosInstance.get(`/penulis/cari/${id}`);
       console.log(penulis.data.data);
 
       setNamaPenulis(penulis.data.data.nama_penulis);
@@ -44,7 +44,7 @@ const EditPenulis = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axiosInstance.patch(`/api/penulis/update/${id}`, {
+      await axiosInstance.patch(`/penulis/update/${id}`, {
         nama_penulis: namaPenulis,
         alamat,
         email,

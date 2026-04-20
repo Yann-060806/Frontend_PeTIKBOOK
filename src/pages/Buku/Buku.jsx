@@ -23,7 +23,7 @@ const Buku = () => {
 
   const getBuku = async () => {
     try {
-      const result = await axiosInstance.get(`/api/buku`);
+      const result = await axiosInstance.get(`/buku`);
 
       setBuku(result.data.data);
     } catch (error) {
@@ -52,7 +52,7 @@ const Buku = () => {
     if (!msg) return;
 
     try {
-      await axiosInstance.delete(`/api/buku/delete/${id}`);
+      await axiosInstance.delete(`/buku/delete/${id}`);
       getBuku();
     } catch (error) {
       console.log(error);
@@ -61,7 +61,7 @@ const Buku = () => {
 
   const getPenulis = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penulis`);
+      const result = await axiosInstance.get(`/penulis`);
       setPenulis(result.data.data);
     } catch (error) {
       console.log(error);
@@ -70,7 +70,7 @@ const Buku = () => {
 
   const getPenerbit = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penerbit`);
+      const result = await axiosInstance.get(`/penerbit`);
       setPenerbit(result.data.data);
     } catch (error) {
       console.log(error);
@@ -79,7 +79,7 @@ const Buku = () => {
 
   const getGenre = async () => {
     try {
-      const result = await axiosInstance.get(`/api/genre`);
+      const result = await axiosInstance.get(`/genre`);
       setGenre(result.data.data);
     } catch (error) {
       console.log(error);
@@ -165,7 +165,7 @@ const Buku = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Data tidak ditemukan</td>
+                <td colSpan={7}>Maaf, data buku tidak ditemukan</td>
               </tr>
             )}
           </tbody>

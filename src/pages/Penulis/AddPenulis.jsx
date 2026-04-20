@@ -26,7 +26,7 @@ const AddPenulis = () => {
     setErrors({});
     try {
       await axiosInstance.post(
-        "/api/penulis/create",
+        "/penulis/create",
         {
           nama_penulis: namaPenulis,
           alamat,

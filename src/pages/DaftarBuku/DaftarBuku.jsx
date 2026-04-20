@@ -81,6 +81,7 @@ const DaftarBuku = () => {
             {kategori.map((c) => (
               <Button
                 color="primary"
+                key={c.id}
                 outline
                 className="me-2 rounded-pill mt-2"
               >

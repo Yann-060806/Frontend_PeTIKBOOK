@@ -36,7 +36,7 @@ const AddBuku = () => {
 
     try {
       await axiosInstance.post(
-        `/api/buku/create`,
+        `/buku/create`,
         {
           judul_buku: namaBuku,
           deskripsi,
@@ -69,7 +69,7 @@ const AddBuku = () => {
 
   const getGenre = async () => {
     try {
-      const result = await axiosInstance.get(`/api/genre`);
+      const result = await axiosInstance.get(`/genre`);
       setGenreList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -78,7 +78,7 @@ const AddBuku = () => {
 
   const getPenulis = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penulis`);
+      const result = await axiosInstance.get(`/penulis`);
       setPenulisList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -87,7 +87,7 @@ const AddBuku = () => {
 
   const getPenerbit = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penerbit`);
+      const result = await axiosInstance.get(`/penerbit`);
       setPenerbitList(result.data.data);
     } catch (error) {
       console.log(error);

@@ -15,7 +15,7 @@ const Users = () => {
 
   const getUsers = async () => {
     try {
-      const result = await axiosInstance.get("/api/user");
+      const result = await axiosInstance.get("/user");
       setUsers(result.data.data);
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ const Users = () => {
     if (!msg) return;
 
     try {
-      await axiosInstance.delete(`/api/user/hapus/${id}`);
+      await axiosInstance.delete(`/user/hapus/${id}`);
       getUsers();
     } catch (error) {
       console.log(error);
@@ -79,7 +79,7 @@ const Users = () => {
                   <td>{item.username}</td>
                   <td>{item.role}</td>
                   <td>
-                    <img src={item.url} alt="gambar" width={100} />
+                    <img src={item.profil} alt="gambar" width={100} />
                   </td>
 
                   <td>
@@ -95,7 +95,7 @@ const Users = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Data tidak ditemukan</td>
+                <td colSpan={7}> Maaf, data users tidak ditemukan</td>
               </tr>
             )}
           </tbody>

@@ -19,6 +19,8 @@ import EditGenre from "./pages/Genre/EditGenre.jsx";
 import Buku from "./pages/Buku/Buku.jsx";
 import AddBuku from "./pages/Buku/AddBuku.jsx";
 import EditBuku from "./pages/Buku/EditBuku.jsx";
+import ApprovePeminjaman from "./pages/ApprovePeminjaman/ApprovePeminjaman.jsx";
+import HistoryAdmin from "./pages/HistoryAdmin/HistoryAdmin.jsx";
 
 function App() {
   return (
@@ -28,8 +30,6 @@ function App() {
       <Route path="/daftarbuku" element={<DaftarBuku />} />
       <Route path="/peminjaman" element={<AjukanPinjam />} />
       <Route path="/statusPeminjaman" element={<StatusPeminjaman />} />
-      
-      
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route element={<h1>Dashboard</h1>} />
@@ -58,8 +58,11 @@ function App() {
         <Route path="/dashboard/users" element={<Users />} />
         <Route path="/dashboard/users/add" element={<AddUsers />} />
 
+        {/* Approve */}
+        <Route path="/dashboard/approve" element={<ApprovePeminjaman />} />
+
         {/* History */}
-        <Route path="/dashboard/pesanan" element={<h1>Halo</h1>} />
+        <Route path="/dashboard/history/admin" element={<HistoryAdmin />} />
       </Route>
     </Routes>
   );

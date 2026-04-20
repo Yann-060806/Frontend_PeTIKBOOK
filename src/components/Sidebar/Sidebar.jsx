@@ -8,6 +8,7 @@ import {
   FaUser,
   FaChevronDown,
   FaList,
+  FaHistory,
 } from "react-icons/fa";
 import { IoStatsChartSharp } from "react-icons/io5";
 import { useState } from "react";
@@ -36,7 +37,7 @@ const Sidebar = () => {
 
         <li>
           <NavLink
-            to="/dashboard/pesanan"
+            to="/dashboard/approve"
             className={({ isActive }) => (isActive ? "active-link" : "")}
           >
             <FaUser /> Peminjam
@@ -80,7 +81,9 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/history">History</NavLink>
+                <NavLink to="/dashboard/history/admin">
+                  <FaHistory /> History
+                </NavLink>
               </li>
             </ul>
           )}

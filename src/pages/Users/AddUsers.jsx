@@ -25,7 +25,7 @@ const AddUsers = () => {
     setErrors({});
     try {
       await axiosInstance.post(
-        "/api/user/create",
+        "/user/create",
         {
           username,
           password,

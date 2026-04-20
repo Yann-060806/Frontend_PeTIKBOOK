@@ -1,179 +1,103 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import axiosInstance from "../../utils/axiosInstance";
+import { useLocation, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AjukanPinjam = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ambil buku dari halaman sebelumnya
-  const selectedBuku = location.state;
+  const buku = location.state; // dari card buku
 
-  // state
   const [user, setUser] = useState(null);
-  const [buku, setBuku] = useState(selectedBuku || null);
   const [tanggalPinjam, setTanggalPinjam] = useState("");
   const [tanggalKembali, setTanggalKembali] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ambil user login dari token
+  // ambil user dari token
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return;
+    const token = localStorage.getItem("token");
+    if (!token) return;
 
-        const decoded = jwtDecode(token);
+    const decoded = jwtDecode(token);
 
-        const res = await axiosInstance.get(
-          "api/user"
-        );
-
-        // cari user sesuai id token
-        const currentUser = res.data.data.find(
-          (item) => item.id === decoded.id
-        );
-
-        setUser(currentUser);
-      } catch (error) {
-        console.error("Error ambil user:", error);
-      }
-    };
-
-    fetchUser();
+    setUser({
+      id: decoded.id,
+      username: decoded.username,
+    });
   }, []);
 
-  // submit pinjam
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
 
-  try {
-    const payload = {
-  user_id: user.id,
-  buku_id: buku.id,
-  tgl_pinjam: tanggalPinjam,
-  tgl_kembali: tanggalKembali,
-};
+    if (!user || !buku) {
+      alert("Data belum lengkap");
+      return;
+    }
 
-    console.log("DATA PINJAM:", payload);
+    setLoading(true);
 
-    // ✅ KIRIM KE API
-    await axiosInstance.post(
-      "/api/transaksi",
-      payload
-    );
+    try {
+      const payload = {
+        user_id: user.id,
+        buku_id: buku.id,
+        tgl_pinjam: tanggalPinjam,
+        tgl_kembali: tanggalKembali,
+      };
 
-    alert("Peminjaman berhasil!");
-    navigate("/statusPeminjaman");
-  } catch (error) {
-    console.error(error);
-    alert("Gagal pinjam");
-  } finally {
-    setLoading(false);
+      await axiosInstance.post("/transaksi/create", payload);
+
+      alert("Peminjaman berhasil!");
+      navigate("/statusPeminjaman");
+    } catch (err) {
+      console.log(err.response?.data || err);
+      alert("Gagal pinjam");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!buku) {
+    return <h3>Buku tidak ditemukan</h3>;
   }
-};
 
   return (
-    <div>
-      <div className="pinjaman-header-tambah">
-        <h3>Ajukan Peminjaman Buku</h3>
+    <div style={{ padding: 20 }}>
+      <h2>Ajukan Peminjaman Buku</h2>
+
+      <div>
+        <h4>{buku.judul_buku}</h4>
+        <img src={buku.foto} width="150" />
       </div>
 
-      <div className="add-pinjaman-layout">
-        {/* GAMBAR BUKU */}
-        <div className="image-side">
-          {buku && (
-            <img src={buku.foto} alt={buku.judul_buku} />
-          )}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>User</label>
+          <input value={user?.username || ""} disabled />
         </div>
 
-        {/* FORM */}
-        <div className="form-side">
-          <form onSubmit={handleSubmit} className="from-wrapper">
-            {/* USER LOGIN */}
-            <div className="from-grid">
-              <label>Usernamee</label>
-              <input
-                type="text"
-                value={user?.username || "guest"}
-                readOnly
-              />
-            </div>
-
-            {/* BUKU */}
-            <div className="from-grid">
-              <label>Judul Buku</label>
-              <input
-                type="text"
-                value={buku?.judul_buku || ""}
-                readOnly
-              />
-            </div>
-
-            <div className="from-grid">
-              <label>Deskripsi</label>
-              <input
-                type="text"
-                value={buku?.deskripsi || ""}
-                readOnly
-              />
-            </div>
-
-            <div className="from-grid">
-              <label>Stok</label>
-              <input
-                type="text"
-                value={buku?.stok || ""}
-                readOnly
-              />
-            </div>
-
-            {/* TANGGAL PINJAM */}
-            <div className="from-grid">
-              <label>Tanggal Pinjam</label>
-              <input
-                type="date"
-                value={tanggalPinjam}
-                onChange={(e) =>
-                  setTanggalPinjam(e.target.value)
-                }
-                required
-              />
-              <label>Tanggal Kembali</label>
-              <input
-                type="date"
-                value={tanggalKembali}
-                onChange={(e) =>
-                  setTanggalKembali(e.target.value)
-                }
-                required
-              />
-            </div>
-
-            {/* BUTTON */}
-            <div className="btn-group">
-              <button
-                type="button"
-                onClick={() => navigate(-1)}
-                className="btn-delete"
-              >
-                Batal
-              </button>
-
-              <button
-                type="submit"
-                className="btn-tambah"
-                disabled={loading}
-              >
-                {loading ? "Menyimpan..." : "Pinjam Buku"}
-              </button>
-            </div>
-          </form>
+        <div>
+          <label>Tanggal Pinjam</label>
+          <input
+            type="date"
+            onChange={(e) => setTanggalPinjam(e.target.value)}
+            required
+          />
         </div>
-      </div>
+
+        <div>
+          <label>Tanggal Kembali</label>
+          <input
+            type="date"
+            onChange={(e) => setTanggalKembali(e.target.value)}
+            required
+          />
+        </div>
+
+        <button disabled={loading}>
+          {loading ? "Loading..." : "Pinjam Buku"}
+        </button>
+      </form>
     </div>
   );
 };

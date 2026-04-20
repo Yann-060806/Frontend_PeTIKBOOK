@@ -17,7 +17,7 @@ const Penerbit = () => {
   const getPenerbit = async () => {
     setLoading(true);
     try {
-      const result = await axiosInstance.get("/api/penerbit");
+      const result = await axiosInstance.get("/penerbit");
       setPenerbit(result.data.data);
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ const Penerbit = () => {
     const msg = window.confirm("Apakah yakin ingin menghapus penerbit ini?");
     if (!msg) return;
     try {
-      await axiosInstance.delete(`/api/penerbit/delete/${id}`);
+      await axiosInstance.delete(`/penerbit/delete/${id}`);
       getPenerbit();
     } catch (error) {
       console.log(error);
@@ -79,28 +79,37 @@ const Penerbit = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((p, index) => (
-              <tr key={index}>
-                <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                <td>
-                  <img src={p.profil} alt="gambar" width={120} />
-                </td>
-                <td>{p.nama_penerbit}</td>
-                <td>{p.email}</td>
-                <td>{p.no_hp}</td>
-                <td>
-                  <button className="btn-edit" onClick={() => handleEdit(p.id)}>
-                    Edit
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleDelete(p.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+            {paginatedData.length > 0 ? (
+              paginatedData.map((p, index) => (
+                <tr key={index}>
+                  <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+                  <td>
+                    <img src={p.profil} alt="gambar" width={120} />
+                  </td>
+                  <td>{p.nama_penerbit}</td>
+                  <td>{p.email}</td>
+                  <td>{p.no_hp}</td>
+                  <td>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(p.id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDelete(p.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7}>Maaf, data penerbit tidak ditemukan</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

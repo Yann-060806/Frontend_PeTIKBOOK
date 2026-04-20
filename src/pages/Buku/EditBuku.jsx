@@ -34,7 +34,7 @@ const EditBuku = () => {
   const getBukuById = async () => {
     setLoading(true);
     try {
-      const buku = await axiosInstance.get(`/api/buku/cari/${id}`);
+      const buku = await axiosInstance.get(`/buku/cari/${id}`);
       setNamaBuku(buku.data.data.judul_buku);
       setDeskripsi(buku.data.data.deskripsi);
       setStok(buku.data.data.stok);
@@ -56,7 +56,7 @@ const EditBuku = () => {
     setErrors({});
     try {
       await axiosInstance.patch(
-        `/api/buku/update/${id}`,
+        `/buku/update/${id}`,
         {
           judul_buku: namaBuku,
           deskripsi,
@@ -89,7 +89,7 @@ const EditBuku = () => {
 
   const getGenre = async () => {
     try {
-      const result = await axiosInstance.get(`/api/genre`);
+      const result = await axiosInstance.get(`/genre`);
       setGenreList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -98,7 +98,7 @@ const EditBuku = () => {
 
   const getPenulis = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penulis`);
+      const result = await axiosInstance.get(`/penulis`);
       setPenulisList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -107,7 +107,7 @@ const EditBuku = () => {
 
   const getPenerbit = async () => {
     try {
-      const result = await axiosInstance.get(`/api/penerbit`);
+      const result = await axiosInstance.get(`/penerbit`);
       setPenerbitList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -143,6 +143,7 @@ const EditBuku = () => {
               <input
                 type="text"
                 id="judul_buku"
+                value={namaBuku}
                 placeholder="Contoh: Atomic Habits"
                 onChange={(e) => setNamaBuku(e.target.value)}
                 required
@@ -154,6 +155,7 @@ const EditBuku = () => {
               <input
                 type="text"
                 id="deskripsi"
+                value={deskripsi}
                 placeholder="Masukan Deskripsi......."
                 onChange={(e) => setDeskripsi(e.target.value)}
                 required
@@ -165,6 +167,7 @@ const EditBuku = () => {
               <input
                 type="number"
                 id="stok"
+                value={stok}
                 onChange={(e) => setStok(e.target.value)}
                 required
               />
@@ -175,6 +178,7 @@ const EditBuku = () => {
               <input
                 type="date"
                 id="tgl_terbit"
+                value={tanggalTerbit}
                 onChange={(e) => setTanggalTerbit(e.target.value)}
                 required
               />
