@@ -4,6 +4,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import MyNavbar from "../../components/MyNavbar/MyNavbar";
 import Footer from "../../components/Footer/Footer";
 import { Badge } from "react-bootstrap";
+import { RiBookShelfLine } from "react-icons/ri";
 
 const StatusPeminjaman = () => {
   const [transaksi, setTransaksi] = useState([]);
@@ -58,7 +59,7 @@ const StatusPeminjaman = () => {
       <MyNavbar />
 
       <div style={{ padding: "20px" }}>
-        <h2>📚 Status Peminjaman</h2>
+        <h2><RiBookShelfLine /> Status Peminjaman</h2>
 
         {transaksi.length === 0 ? (
           <p>Belum ada buku yang dipinjam</p>
