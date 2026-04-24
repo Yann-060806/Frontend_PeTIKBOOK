@@ -7,14 +7,13 @@ const AjukanPinjam = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const buku = location.state; // dari card buku
+  const buku = location.state;
 
   const [user, setUser] = useState(null);
   const [tanggalPinjam, setTanggalPinjam] = useState("");
   const [tanggalKembali, setTanggalKembali] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ambil user dari token
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;

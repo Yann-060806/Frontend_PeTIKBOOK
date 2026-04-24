@@ -45,6 +45,15 @@ const Sidebar = () => {
         </li>
 
         <li>
+          <NavLink
+            to="/dashboard/denda"
+            className={({ isActive }) => (isActive ? "active-link" : "")}
+          >
+            <FaUser /> Denda
+          </NavLink>
+        </li>
+
+        <li>
           <div
             className="menu-parent"
             onClick={() => setOpenMaster(!openMaster)}

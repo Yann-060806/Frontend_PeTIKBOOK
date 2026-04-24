@@ -21,6 +21,8 @@ import AddBuku from "./pages/Buku/AddBuku.jsx";
 import EditBuku from "./pages/Buku/EditBuku.jsx";
 import ApprovePeminjaman from "./pages/ApprovePeminjaman/ApprovePeminjaman.jsx";
 import HistoryAdmin from "./pages/HistoryAdmin/HistoryAdmin.jsx";
+import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin.jsx";
+import Denda from "./pages/Denda/Denda.jsx";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
       <Route path="/statusPeminjaman" element={<StatusPeminjaman />} />
 
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route element={<h1>Dashboard</h1>} />
+        <Route path="/dashboard" element={<DashboardAdmin />} />
 
         {/* Buku*/}
         <Route path="/dashboard/buku" element={<Buku />} />
@@ -63,6 +65,9 @@ function App() {
 
         {/* History */}
         <Route path="/dashboard/history/admin" element={<HistoryAdmin />} />
+
+        {/* Denda */}
+        <Route path="/dashboard/denda" element={<Denda />} />
       </Route>
     </Routes>
   );
