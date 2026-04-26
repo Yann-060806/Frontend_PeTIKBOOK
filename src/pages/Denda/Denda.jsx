@@ -18,6 +18,8 @@ const Denda = () => {
     setLoading(true);
     try {
       const result = await axiosInstance.get("/denda");
+      console.log(result.data);
+
       setDenda(result.data.data);
     } catch (error) {
       console.log(error);
@@ -43,21 +45,6 @@ const Denda = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [search]);
-
-  const handleDelete = async (id) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus denda ini?");
-    if (!msg) return;
-    try {
-      await axiosInstance.delete(`/denda/hapus/${id}`);
-      getGenre();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleEdit = async (id) => {
-    navigate(`/dashboard/denda/edit/${id}`);
-  };
 
   return (
     <div>
@@ -85,8 +72,7 @@ const Denda = () => {
                   <td>{d.status}</td>
                   <td>{d.transaksi_id}</td>
                   <td>
-                    <button onClick={() => handleEdit(d.id)}>Edit</button>
-                    <button onClick={() => handleDelete(d.id)}>Delete</button>
+                    <button>Selesai</button>
                   </td>
                 </tr>
               ))

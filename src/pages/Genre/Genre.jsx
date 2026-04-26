@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./Genre.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Genre = () => {
   const [genre, setGenre] = useState([]);
@@ -63,7 +64,9 @@ const Genre = () => {
     <div>
       <div className="genre-header">
         <h3>Daftar Genre</h3>
-        <NavLink to={"/dashboard/genre/add"}>Tambah Genre</NavLink>
+        <NavLink to={"/dashboard/genre/add"}>
+          <FaPlusCircle /> Tambah Genre
+        </NavLink>
       </div>
 
       <div className="table-wrapper">

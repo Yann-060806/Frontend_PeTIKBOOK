@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./Penulis.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Penulis = () => {
   const [penulis, setPenulis] = useState([]);
@@ -63,7 +64,9 @@ const Penulis = () => {
     <div>
       <div className="penulis-header">
         <h3>Daftar Penulis</h3>
-        <NavLink to={"/dashboard/penulis/add"}>Tambah Penulis</NavLink>
+        <NavLink to={"/dashboard/penulis/add"}>
+          <FaPlusCircle /> Tambah Penulis
+        </NavLink>
       </div>
 
       <div className="table-wrapper">

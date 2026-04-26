@@ -10,9 +10,9 @@
 .buku-header h3,
 .produk-header-tambah h3,
 .buku-header-tambah h3 {
-  font-size: 18px;
-  font-weight: 500;
-  color: #0c447c;
+  font-size: 25px;
+  font-weight: 600;
+  color: #206ee4;
 }
 
 .buku-header a {

@@ -1,5 +1,5 @@
 .footer-section {
-  background: #0f172a;
+  background: linear-gradient(135deg, #4e8cea, #206ee4);
   color: #fff;
   padding: 60px 0 20px;
   margin-top: 80px;
@@ -10,7 +10,7 @@
 }
 
 .footer-desc {
-  color: #cbd5e1;
+  color: #ffffff;
   font-size: 14px;
   margin-top: 10px;
 }
@@ -25,18 +25,16 @@
   padding: 0;
 }
 
-.footer-list li {
-  font-size: 14px;
+.footer-list a {
+  text-decoration: none;
   color: #cbd5e1;
-  margin-bottom: 8px;
-  cursor: pointer;
+  font-size: 14px;
   transition: 0.3s;
 }
 
-.footer-list li:hover {
-  color: #4e8cea;
+.footer-list a:hover {
+  color: #ffffff;
 }
-
 .footer-contact {
   font-size: 14px;
   color: #cbd5e1;
@@ -50,5 +48,5 @@
 
 .footer-bottom {
   font-size: 13px;
-  color: #94a3b8;
+  color: #ffffff;
 }

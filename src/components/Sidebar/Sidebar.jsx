@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
-import logo from "../../assets/monyet.png";
+import logo from "../../assets/logo.png";
 import {
   FaBook,
   FaPen,

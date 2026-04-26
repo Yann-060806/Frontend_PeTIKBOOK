@@ -1,3 +1,10 @@
+.approve-header h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #206ee4;
+  margin-bottom: 20px;
+}
+
 .table-wrapper {
   background: #ffffff;
   border: 0.5px solid rgba(0, 0, 0, 0.08);

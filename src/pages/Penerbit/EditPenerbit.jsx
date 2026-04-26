@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import editPelanggan from "../../assets/monyet.png";
 import axiosInstance from "../../utils/axiosInstance";
 import "./EditPenerbit.css";
+import EditImg from "../../assets/editPenerbit.svg";
 
 const EditPenerbit = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
   const [namaPenerbit, setNamaPenerbit] = useState("");
   const [email, setEmail] = useState("");
   const [noHp, setNoHp] = useState("");
   const [profil, setProfil] = useState(null);
-
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-  const { id } = useParams();
 
   useEffect(() => {
-    getPenulisById();
+    getPenerbitById();
   }, []);
 
-  const getPenulisById = async () => {
+  const getPenerbitById = async () => {
     setLoading(true);
     try {
-      const penerbit = await axiosInstance.get(`/penerbit/cari/${id}`);
-      console.log(penerbit.data.data);
+      const res = await axiosInstance.get(`/penerbit/cari/${id}`);
+      const data = res.data.data;
 
-      setNamaPenerbit(penerbit.data.data.nama_penerbit);
-      setEmail(penerbit.data.data.email);
-      setNoHp(penerbit.data.data.no_hp);
-      setPreview(penerbit.data.data.profil);
-    } catch (error) {
-      console.log(error.response);
+      setNamaPenerbit(data.nama_penerbit);
+      setEmail(data.email);
+      setNoHp(data.no_hp);
+      setPreview(data.profil);
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -40,17 +39,26 @@ const EditPenerbit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrors({});
+
     try {
-      await axiosInstance.patch(`/penerbit/update/${id}`, {
-        nama_penerbit: namaPenerbit,
-        email,
-        no_hp: noHp,
-        profil,
-      });
+      await axiosInstance.patch(
+        `/penerbit/update/${id}`,
+        {
+          nama_penerbit: namaPenerbit,
+          email,
+          no_hp: noHp,
+          profil,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
       navigate(-1);
-    } catch (error) {
-      console.log(error.response);
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -63,31 +71,25 @@ const EditPenerbit = () => {
   };
 
   return (
-    <div>
-      <div className="pelanggan-header-tambah">
+    <div className="penerbit-container">
+      <div className="penerbit-header">
         <h3>Edit Penerbit</h3>
       </div>
 
-      <div className="add-pelanggan-layout">
-        <div className="image-side">
-          <img src={editPelanggan} alt="preview" />
-        </div>
-
-        <div className="form-side">
-          <form onSubmit={handleSubmit} className="from-wrapper">
-            <div className="from-grid">
-              <label htmlFor="nama_penerbit">Nama Penerbit</label>
+      <div className="penerbit-layout">
+        <div className="penerbit-form-side">
+          <form onSubmit={handleSubmit} className="penerbit-form">
+            <div className="penerbit-field">
+              <label>Nama Penerbit</label>
               <input
                 type="text"
-                id="nama_penerbit"
                 value={namaPenerbit}
-                placeholder="Contoh: Andrea Hirata"
                 onChange={(e) => setNamaPenerbit(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
+            <div className="penerbit-field">
               <label>Email</label>
               <input
                 type="email"
@@ -97,41 +99,42 @@ const EditPenerbit = () => {
               />
             </div>
 
-            <div className="from-grid">
-              <label>Nomor HP</label>
+            <div className="penerbit-field">
+              <label>No HP</label>
               <input
-                type="tel"
+                type="text"
                 value={noHp}
                 onChange={(e) => setNoHp(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="profil">Gambar</label>
-              <input
-                type="file"
-                id="profil"
-                accept="image/*"
-                onChange={handleChangeImage}
-              />
-              {preview && <img src={preview} alt="image-preview" width={220} />}
+            <div className="penerbit-field">
+              <label>Gambar</label>
+              <input type="file" onChange={handleChangeImage} />
+              {preview && (
+                <img src={preview} alt="preview" className="penerbit-preview" />
+              )}
             </div>
 
-            <div className="btn-group">
+            <div className="penerbit-actions">
               <button
                 type="button"
+                className="btn-cancel"
                 onClick={() => navigate(-1)}
-                className="btn-delete"
               >
                 Batal
               </button>
 
-              <button type="submit" className="btn-tambah" disabled={loading}>
+              <button type="submit" className="btn-submit" disabled={loading}>
                 {loading ? "Menyimpan..." : "Simpan"}
               </button>
             </div>
           </form>
+        </div>
+
+        <div className="penerbit-image">
+          <img src={EditImg} alt="illustration" />
         </div>
       </div>
     </div>

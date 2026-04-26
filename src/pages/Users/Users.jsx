@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 import "./Users.css";
@@ -8,6 +8,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsers();
@@ -38,18 +39,6 @@ const Users = () => {
     setCurrentPage(1);
   }, [search]);
 
-  const handleDelete = async (id) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus user ini?");
-    if (!msg) return;
-
-    try {
-      await axiosInstance.delete(`/user/hapus/${id}`);
-      getUsers();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div>
       <div className="users-header">
@@ -67,7 +56,6 @@ const Users = () => {
               <th>Username</th>
               <th>Role</th>
               <th>Gambar</th>
-              <th>Aksi</th>
             </tr>
           </thead>
 
@@ -80,16 +68,6 @@ const Users = () => {
                   <td>{item.role}</td>
                   <td>
                     <img src={item.profil} alt="gambar" width={100} />
-                  </td>
-
-                  <td>
-                    <button className="btn-edit">Edit</button>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleDelete(item.id)}
-                    >
-                      Delete
-                    </button>
                   </td>
                 </tr>
               ))

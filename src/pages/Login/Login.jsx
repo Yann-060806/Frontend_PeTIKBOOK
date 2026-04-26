@@ -4,15 +4,40 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import phoneImg from "../../assets/figure-hero-image.webp";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errors, setErrors] = useState({
+    username: "",
+    password: "",
+  });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let newErrors = {
+      username: "",
+      password: "",
+    };
+
+    if (!username) {
+      newErrors.username = "Username wajib diisi";
+    }
+
+    if (!password) {
+      newErrors.password = "Password wajib diisi";
+    }
+
+    if (newErrors.username || newErrors.password) {
+      setErrors(newErrors);
+      toast.error("Semua field wajib diisi");
+      return;
+    }
 
     try {
       const response = await axios.post("/api/login", {
@@ -20,18 +45,39 @@ export default function Login() {
         password,
       });
 
-      console.log("Response", response.data);
       const token = response.data.data.token;
       const decoded = jwtDecode(token);
 
       localStorage.setItem("token", token);
-      if (decoded.role === "user") {
-        navigate("/home", { replace: true });
-      } else {
-        navigate("/dashboard", { replace: true });
-      }
+
+      toast.success("Login berhasil");
+
+      setTimeout(() => {
+        if (decoded.role === "user") {
+          navigate("/home", { replace: true });
+        } else {
+          navigate("/dashboard", { replace: true });
+        }
+      }, 1200);
     } catch (error) {
-      console.log(error.message);
+      const message = error.response?.data?.message;
+
+      let newErrors = {
+        username: "",
+        password: "",
+      };
+
+      if (message === "Maaf, username tidak ditemukan") {
+        newErrors.username = message;
+        toast.error(message);
+      } else if (message === "Maaf, Password salah") {
+        newErrors.password = message;
+        toast.error(message);
+      } else {
+        toast.error("Terjadi kesalahan pada server");
+      }
+
+      setErrors(newErrors);
     }
   };
 
@@ -55,7 +101,7 @@ export default function Login() {
         </div>
 
         <div className="login-right">
-          <div className="from-wrapper">
+          <div className="form-wrapper">
             <h3>Selamat Datang</h3>
             <h1>
               <span>PeTiK Book</span>
@@ -63,36 +109,43 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="login-form">
               <div className="login-field">
-                <label htmlFor="username">Username</label>
+                <label>Username</label>
                 <input
                   type="text"
-                  placeholder="Masukan Username...."
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Masukan Username..."
                   value={username}
-                  required
-                  autoFocus
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                    setErrors({ ...errors, username: "" });
+                  }}
+                  className={errors.username ? "input-error" : ""}
                 />
+                {errors.username && (
+                  <p className="error-text">{errors.username}</p>
+                )}
               </div>
 
               <div className="login-field">
-                <label htmlFor="password">Password</label>
+                <label>Password</label>
                 <input
                   type="password"
-                  placeholder="Masukan Password...."
-                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Masukan Password..."
                   value={password}
-                  required
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setErrors({ ...errors, password: "" });
+                  }}
+                  className={errors.password ? "input-error" : ""}
                 />
+                {errors.password && (
+                  <p className="error-text">{errors.password}</p>
+                )}
               </div>
 
               <button className="btn-login" type="submit">
                 Masuk
               </button>
             </form>
-
-            <p className="footer-text">
-              Don't have an account? <span>Call Admin</span>
-            </p>
           </div>
         </div>
       </div>

@@ -1,0 +1,122 @@
+/* ===== CONTAINER ===== */
+.edit-genre-container {
+  width: 100%;
+}
+
+/* ===== HEADER ===== */
+.edit-genre-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.edit-genre-header h3 {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+/* ===== LAYOUT ===== */
+.edit-genre-layout {
+  display: flex;
+  gap: 24px;
+}
+
+/* ===== LEFT IMAGE ===== */
+.edit-genre-image {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.edit-genre-image img {
+  max-width: 300px;
+  width: 100%;
+}
+
+/* ===== RIGHT FORM ===== */
+.edit-genre-form-side {
+  flex: 1;
+  display: flex;
+}
+
+.edit-genre-form {
+  background: #f1f5f9;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== FIELD ===== */
+.edit-genre-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.edit-genre-field label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.edit-genre-field input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.edit-genre-field input:focus {
+  border-color: #2563eb;
+}
+
+/* ===== BUTTON ===== */
+.edit-genre-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.edit-genre-btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.edit-genre-btn-cancel:hover {
+  background: #e2e8f0;
+}
+
+.edit-genre-btn-submit {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.edit-genre-btn-submit:hover {
+  background: #1d4ed8;
+}
+
+.edit-genre-btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .edit-genre-layout {
+    flex-direction: column;
+  }
+}

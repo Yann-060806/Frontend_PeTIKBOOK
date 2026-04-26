@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./Penerbit.css";
+import { FaPlusCircle } from "react-icons/fa";
 
 const Penerbit = () => {
   const [penerbit, setPenerbit] = useState([]);
@@ -61,9 +62,11 @@ const Penerbit = () => {
 
   return (
     <div>
-      <div className="penerbit-header">
+      <div className="penerbit-header-utama">
         <h3>Daftar Penerbit</h3>
-        <NavLink to={"/dashboard/penerbit/add"}>Tambah Penerbit</NavLink>
+        <NavLink to={"/dashboard/penerbit/add"}>
+          <FaPlusCircle /> Tambah Penerbit
+        </NavLink>
       </div>
 
       <div className="table-wrapper">

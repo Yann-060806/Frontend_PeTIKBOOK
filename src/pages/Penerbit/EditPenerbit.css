@@ -1,0 +1,122 @@
+.penerbit-container {
+  width: 100%;
+}
+
+.penerbit-header {
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.penerbit-header h3 {
+  text-align: center;
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.penerbit-layout {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.penerbit-image {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  min-height: 500px;
+}
+
+.penerbit-image img {
+  width: 100%;
+  max-width: 900px;
+  object-fit: contain;
+}
+
+.penerbit-form-side {
+  flex: 1;
+  display: flex;
+}
+
+.penerbit-form {
+  background: #f1f5f9;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.penerbit-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.penerbit-field label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.penerbit-field input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.penerbit-field input:focus {
+  border-color: #2563eb;
+}
+
+.penerbit-preview {
+  margin-top: 10px;
+  width: 200px;
+  border-radius: 8px;
+}
+
+.penerbit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-submit {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .penerbit-layout {
+    flex-direction: column;
+  }
+
+  .penerbit-image {
+    min-height: 300px;
+  }
+}

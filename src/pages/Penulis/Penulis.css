@@ -10,16 +10,16 @@
 .penulis-header h3,
 .penulis-header-tambah h3,
 .penulis-header-tambah h3 {
-  font-size: 18px;
-  font-weight: 500;
-  color: #0c447c;
+  font-size: 25px;
+  font-weight: 600;
+  color: #206ee4;
 }
 
 .penulis-header a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: #185fa5;
+  background: #206ee4;
   color: #ffffff;
   font-size: 13px;
   font-weight: 500;
@@ -30,7 +30,7 @@
 }
 
 .penulis-header a:hover {
-  background: #0c447c;
+  background: #4e8cea;
 }
 
 .table-wrapper {

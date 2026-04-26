@@ -4,27 +4,13 @@ import axiosInstance from "../../utils/axiosInstance";
 import MyNavbar from "../../components/MyNavbar/MyNavbar";
 import Footer from "../../components/Footer/Footer";
 import { Spinner } from "react-bootstrap";
-import { RiBookShelfLine } from "react-icons/ri";
-import "./StatusPeminjaman.css";
+import { RiHistoryLine } from "react-icons/ri";
+import "./HistoryUser.css";
 
-const StatusPeminjaman = () => {
+const HistoryUser = () => {
   const [transaksi, setTransaksi] = useState([]);
   const [bukuList, setBukuList] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const statusMap = {
-    pending: { cls: "badge-pending", label: "Pending" },
-    dipinjam: { cls: "badge-dipinjam", label: "Dipinjam" },
-  };
-
-  const getStatusBadge = (status) => {
-    const data = statusMap[status];
-    return (
-      <span className={`custom-badge ${data?.cls || ""}`}>
-        {data?.label || status}
-      </span>
-    );
-  };
 
   useEffect(() => {
     fetchData();
@@ -42,13 +28,11 @@ const StatusPeminjaman = () => {
         axiosInstance.get("/buku"),
       ]);
 
-      const userTransaksi = transaksiRes.data.data.filter(
-        (item) =>
-          item.user_id === decoded.id &&
-          (item.status === "pending" || item.status === "dipinjam"),
+      const historyTransaksi = transaksiRes.data.data.filter(
+        (item) => item.user_id === decoded.id && item.status === "dikembalikan",
       );
 
-      setTransaksi(userTransaksi);
+      setTransaksi(historyTransaksi);
       setBukuList(bukuRes.data.data);
     } catch (error) {
       console.log("ERROR:", error.response?.data || error);
@@ -74,11 +58,11 @@ const StatusPeminjaman = () => {
 
       <div className="status-container" style={{ minHeight: "50vh" }}>
         <h2 className="status-title">
-          <RiBookShelfLine /> Pinjaman Saya
+          <RiHistoryLine /> Riwayat Peminjaman
         </h2>
 
         {transaksi.length === 0 ? (
-          <p className="empty-text">Belum ada buku yang dipinjam</p>
+          <p className="empty-text">Belum ada riwayat peminjaman</p>
         ) : (
           <div className="card-grid mt-5">
             {transaksi.map((item) => {
@@ -105,7 +89,9 @@ const StatusPeminjaman = () => {
                     </div>
 
                     <div className="status-badge">
-                      {getStatusBadge(item.status)}
+                      <span className="custom-badge badge-dikembalikan">
+                        Dikembalikan
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -120,4 +106,4 @@ const StatusPeminjaman = () => {
   );
 };
 
-export default StatusPeminjaman;
+export default HistoryUser;

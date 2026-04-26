@@ -147,7 +147,7 @@ const ApprovePeminjaman = () => {
 
   return (
     <div>
-      <div className="penulis-header">
+      <div className="approve-header">
         <h3>Approval Peminjaman</h3>
       </div>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./AddPenulis.css";
+import addImg from "../../assets/addPenulis.svg";
 
 const AddPenulis = () => {
   const navigate = useNavigate();
@@ -56,99 +57,90 @@ const AddPenulis = () => {
   };
 
   return (
-    <div className="penulis-page">
-      <div className="users-header">
+    <div className="penulis-container">
+      <div className="penulis-header-add">
         <h3>Tambah Penulis</h3>
       </div>
-      <form onSubmit={handleSubmit} className="from-wrapper">
-        <div className="from-grid">
-          <label htmlFor="namaPenulis">Nama Penulis</label>
-          <input
-            type="text"
-            id="namaPenulis"
-            placeholder="Contoh: Andrea Hirata"
-            onChange={(e) => setNamaPenulis(e.target.value)}
-            required
-          />
-          {errors.namaPenulis && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.namaPenulis}
-            </span>
-          )}
+
+      <div className="penulis-layout">
+        <div className="penulis-image">
+          <img src={addImg} alt="preview" />
         </div>
 
-        <div className="from-grid">
-          <label htmlFor="alamat">Alamat</label>
-          <input
-            type="alamat"
-            id="alamat"
-            placeholder="Masukan Alamat...."
-            onChange={(e) => setAlamat(e.target.value)}
-            required
-          />
-          {errors.alamat && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.alamat}
-            </span>
-          )}
-        </div>
+        <div className="penulis-form-side">
+          <form onSubmit={handleSubmit} className="penulis-form">
+            <div className="penulis-field">
+              <label>Nama Penulis</label>
+              <input
+                type="text"
+                placeholder="Contoh: Andrea Hirata"
+                onChange={(e) => setNamaPenulis(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="from-grid">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Masukan Email...."
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          {errors.email && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.email}
-            </span>
-          )}
-        </div>
+            <div className="penulis-field">
+              <label>Alamat</label>
+              <input
+                type="text"
+                placeholder="Masukan alamat..."
+                onChange={(e) => setAlamat(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="from-grid">
-          <label htmlFor="noHp">Nomor Hp</label>
-          <input
-            type="noHp"
-            id="noHp"
-            placeholder="Contoh: 08123456789"
-            onChange={(e) => setNoHp(e.target.value)}
-            required
-          />
-          {errors.noHp && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.noHp}
-            </span>
-          )}
-        </div>
+            <div className="penulis-field">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Masukan email..."
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="from-grid">
-          <label htmlFor="profil">Gambar</label>
-          <input
-            type="file"
-            id="profil"
-            accept="image/*"
-            onChange={handlechangeImage}
-          />
-          {preview && <img src={preview} alt="image-preview" width={220} />}
-        </div>
+            <div className="penulis-field">
+              <label>Nomor HP</label>
+              <input
+                type="text"
+                placeholder="08123456789"
+                onChange={(e) => setNoHp(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="btn-group">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="btn-delete"
-          >
-            Batal
-          </button>
-          <button type="submit" className="btn-tambah" disabled={loading}>
-            {loading ? "Menyimpan..." : "Simpan"}
-          </button>
+            <div className="penulis-field">
+              <label>Foto</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlechangeImage}
+              />
+              {preview && (
+                <img src={preview} alt="preview" className="penulis-preview" />
+              )}
+            </div>
+
+            <div className="penulis-actions">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="penulis-btn-cancel"
+              >
+                Batal
+              </button>
+
+              <button
+                type="submit"
+                className="penulis-btn-submit"
+                disabled={loading}
+              >
+                {loading ? "Menyimpan..." : "Simpan"}
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

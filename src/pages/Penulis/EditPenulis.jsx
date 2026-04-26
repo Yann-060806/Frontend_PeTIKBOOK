@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import editPelanggan from "../../assets/monyet.png";
+import editImg from "../../assets/editPenulis.svg";
 import axiosInstance from "../../utils/axiosInstance";
-import "./AddPenulis.css";
+import "./EditPenulis.css";
 
 const EditPenulis = () => {
   const navigate = useNavigate();
@@ -44,13 +44,21 @@ const EditPenulis = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axiosInstance.patch(`/penulis/update/${id}`, {
-        nama_penulis: namaPenulis,
-        alamat,
-        email,
-        no_hp: noHp,
-        profil,
-      });
+      await axiosInstance.patch(
+        `/penulis/update/${id}`,
+        {
+          nama_penulis: namaPenulis,
+          alamat,
+          email,
+          no_hp: noHp,
+          profil,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
       navigate(-1);
     } catch (error) {
       console.log(error.response);
@@ -66,31 +74,25 @@ const EditPenulis = () => {
   };
 
   return (
-    <div>
-      <div className="penulis-header-tambah">
-        <h3>Edit Pelanggan</h3>
+    <div className="penulis-container">
+      <div className="penulis-header-edit">
+        <h3>Edit Penulis</h3>
       </div>
 
-      <div className="add-penulis-layout">
-        <div className="image-side">
-          <img src={editPelanggan} alt="preview" />
-        </div>
-
-        <div className="form-side">
-          <form onSubmit={handleSubmit} className="from-wrapper">
-            <div className="from-grid">
-              <label htmlFor="nama_penulis">Nama Penulis</label>
+      <div className="penulis-layout">
+        <div className="penulis-form-side">
+          <form onSubmit={handleSubmit} className="penulis-form">
+            <div className="penulis-field">
+              <label>Nama Penulis</label>
               <input
                 type="text"
-                id="nama_penulis"
                 value={namaPenulis}
-                placeholder="Contoh: Andrea Hirata"
                 onChange={(e) => setNamaPenulis(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
+            <div className="penulis-field">
               <label>Alamat</label>
               <input
                 type="text"
@@ -100,7 +102,7 @@ const EditPenulis = () => {
               />
             </div>
 
-            <div className="from-grid">
+            <div className="penulis-field">
               <label>Email</label>
               <input
                 type="email"
@@ -110,41 +112,50 @@ const EditPenulis = () => {
               />
             </div>
 
-            <div className="from-grid">
+            <div className="penulis-field">
               <label>Nomor HP</label>
               <input
-                type="tel"
+                type="text"
                 value={noHp}
                 onChange={(e) => setNoHp(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="profil">Gambar</label>
+            <div className="penulis-field">
+              <label>Foto</label>
               <input
                 type="file"
-                id="profil"
                 accept="image/*"
                 onChange={handleChangeImage}
               />
-              {preview && <img src={preview} alt="image-preview" width={220} />}
+              {preview && (
+                <img src={preview} alt="preview" className="penulis-preview" />
+              )}
             </div>
 
-            <div className="btn-group">
+            <div className="penulis-actions">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-delete"
+                className="penulis-btn-cancel"
               >
                 Batal
               </button>
 
-              <button type="submit" className="btn-tambah" disabled={loading}>
+              <button
+                type="submit"
+                className="penulis-btn-submit"
+                disabled={loading}
+              >
                 {loading ? "Menyimpan..." : "Simpan"}
               </button>
             </div>
           </form>
+        </div>
+
+        <div className="penulis-image">
+          <img src={editImg} alt="preview" />
         </div>
       </div>
     </div>

@@ -1,17 +1,17 @@
-.penerbit-header {
+.penerbit-header-utama {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.penerbit-header h3 {
-  font-size: 18px;
-  font-weight: 500;
-  color: #0c447c;
+.penerbit-header-utama h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #206ee4;
 }
 
-.penerbit-header a {
+.penerbit-header-utama a {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -25,7 +25,7 @@
   transition: background 0.15s;
 }
 
-.penerbit-header a:hover {
+.penerbit-header-utama a:hover {
   background: #0c447c;
 }
 

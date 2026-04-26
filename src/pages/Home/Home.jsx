@@ -14,10 +14,12 @@ import Footer from "../../components/Footer/Footer";
 import heroImg from "../../assets/figure-hero-image.webp";
 import "./Home.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [buku, setBuku] = useState([]);
   const [penulis, setPenulis] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBuku();
@@ -62,7 +64,11 @@ const Home = () => {
                 PeTikBook by Student PeTiK adalah layanan perpustakaan
                 digital...
               </p>
-              <Button color="primary" className="rounded-pill px-4">
+              <Button
+                color="primary"
+                className="rounded-pill px-4"
+                onClick={() => navigate("/daftarbuku")}
+              >
                 Lihat Buku
               </Button>
             </Col>
@@ -110,14 +116,24 @@ const Home = () => {
                       <img src={item.foto} />
 
                       <div className="overlay">
-                        <button className="detail-btn">DETAIL BUKU</button>
+                        <button
+                          className="detail-btn"
+                          onClick={() => navigate(`/detail-buku/${item.id}`)}
+                        >
+                          DETAIL BUKU
+                        </button>{" "}
                       </div>
                     </div>
 
                     <div className="book-info">
                       <h6>{item.judul_buku}</h6>
                       <span>{namePenulis(item.penulis_id)}</span>
-                      <button className="pinjam-btn">Pinjam</button>
+                      <button
+                        className="pinjam-tombol"
+                        onClick={() => navigate("/peminjaman", { state: item })}
+                      >
+                        Pinjam
+                      </button>{" "}
                     </div>
                   </div>
                 </Col>

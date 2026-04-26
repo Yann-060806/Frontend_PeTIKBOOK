@@ -23,53 +23,66 @@ import ApprovePeminjaman from "./pages/ApprovePeminjaman/ApprovePeminjaman.jsx";
 import HistoryAdmin from "./pages/HistoryAdmin/HistoryAdmin.jsx";
 import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin.jsx";
 import Denda from "./pages/Denda/Denda.jsx";
+import ProfilUser from "./pages/ProfilUser/ProfilUser.jsx";
+import DetailBuku from "./pages/DetailBuku/DetailBuku.jsx";
+
+import { ToastContainer } from "react-toastify";
+import HistoryUser from "./pages/HistoryUser/HistoryUser.jsx";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/daftarbuku" element={<DaftarBuku />} />
-      <Route path="/peminjaman" element={<AjukanPinjam />} />
-      <Route path="/statusPeminjaman" element={<StatusPeminjaman />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/detail-buku/:id" element={<DetailBuku />} />
+        <Route path="/daftarbuku" element={<DaftarBuku />} />
+        <Route path="/peminjaman" element={<AjukanPinjam />} />
+        <Route path="/statusPeminjaman" element={<StatusPeminjaman />} />
+        <Route path="/history-peminjaman" element={<HistoryUser />} />
+        <Route path="/profil-mahasantri" element={<ProfilUser />} />
 
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<DashboardAdmin />} />
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<DashboardAdmin />} />
 
-        {/* Buku*/}
-        <Route path="/dashboard/buku" element={<Buku />} />
-        <Route path="/dashboard/buku/add" element={<AddBuku />} />
-        <Route path="/dashboard/buku/edit/:id" element={<EditBuku />} />
+          {/* Buku */}
+          <Route path="buku" element={<Buku />} />
+          <Route path="buku/add" element={<AddBuku />} />
+          <Route path="buku/edit/:id" element={<EditBuku />} />
 
-        {/* Penulis*/}
-        <Route path="/dashboard/penulis" element={<Penulis />} />
-        <Route path="/dashboard/penulis/add" element={<AddPenulis />} />
-        <Route path="/dashboard/penulis/edit/:id" element={<EditPenulis />} />
+          {/* Penulis */}
+          <Route path="penulis" element={<Penulis />} />
+          <Route path="penulis/add" element={<AddPenulis />} />
+          <Route path="penulis/edit/:id" element={<EditPenulis />} />
 
-        {/* Penerbit */}
-        <Route path="/dashboard/penerbit" element={<Penerbit />} />
-        <Route path="/dashboard/penerbit/add" element={<AddPenerbit />} />
-        <Route path="/dashboard/penerbit/edit/:id" element={<EditPenerbit />} />
+          {/* Penerbit */}
+          <Route path="penerbit" element={<Penerbit />} />
+          <Route path="penerbit/add" element={<AddPenerbit />} />
+          <Route path="penerbit/edit/:id" element={<EditPenerbit />} />
 
-        {/* Genre */}
-        <Route path="/dashboard/genre" element={<Genre />} />
-        <Route path="/dashboard/genre/add" element={<AddGenre />} />
-        <Route path="/dashboard/genre/edit/:id" element={<EditGenre />} />
+          {/* Genre */}
+          <Route path="genre" element={<Genre />} />
+          <Route path="genre/add" element={<AddGenre />} />
+          <Route path="genre/edit/:id" element={<EditGenre />} />
 
-        {/* Users */}
-        <Route path="/dashboard/users" element={<Users />} />
-        <Route path="/dashboard/users/add" element={<AddUsers />} />
+          {/* Users */}
+          <Route path="users" element={<Users />} />
+          <Route path="users/add" element={<AddUsers />} />
 
-        {/* Approve */}
-        <Route path="/dashboard/approve" element={<ApprovePeminjaman />} />
+          {/* Approve */}
+          <Route path="approve" element={<ApprovePeminjaman />} />
 
-        {/* History */}
-        <Route path="/dashboard/history/admin" element={<HistoryAdmin />} />
+          {/* History */}
+          <Route path="history/admin" element={<HistoryAdmin />} />
 
-        {/* Denda */}
-        <Route path="/dashboard/denda" element={<Denda />} />
-      </Route>
-    </Routes>
+          {/* Denda */}
+          <Route path="denda" element={<Denda />} />
+        </Route>
+      </Routes>
+
+      <ToastContainer position="top-right" autoClose={2000} theme="colored" />
+    </>
   );
 }
 

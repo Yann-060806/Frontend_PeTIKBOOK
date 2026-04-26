@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import "./MyNavbar.css";
 import monyet from "../../assets/monyet.png";
+import logo from "../../assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const MyNavbar = () => {
@@ -38,8 +39,13 @@ const MyNavbar = () => {
           className="navbar-pill px-4 py-2 shadow-sm d-flex align-items-center"
         >
           <NavbarBrand tag={Link} to="/home" className="text-white me-auto">
+            <img
+              src={logo}
+              alt=""
+              style={{ width: "25px", height: "25px", marginRight: "10px" }}
+            />
             <span style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-              PeTikBook.com
+              PeTikBook
             </span>
           </NavbarBrand>
 
@@ -62,18 +68,18 @@ const MyNavbar = () => {
                 style={navLinkStyle}
                 className="px-3 d-flex align-items-center"
               >
-                Status Peminjaman
-                <Badge
-                  color="danger"
-                  pill
-                  style={{
-                    fontSize: "0.6rem",
-                    marginLeft: "5px",
-                    padding: "2px 5px",
-                  }}
-                >
-                  15+
-                </Badge>
+                Pinjaman Saya
+              </NavLink>
+            </NavItem>
+
+            <NavItem className="position-relative">
+              <NavLink
+                tag={RRNavLink}
+                to="/history-peminjaman"
+                style={navLinkStyle}
+                className="px-3 d-flex align-items-center"
+              >
+                Riwayat Peminjaman
               </NavLink>
             </NavItem>
 
@@ -99,7 +105,12 @@ const MyNavbar = () => {
 
             {open && (
               <div className="dropdown-menu-custom">
-                <button className="dropdown-item text-center">Profile</button>
+                <button
+                  className="dropdown-item text-center"
+                  onClick={() => navigate("/profil-mahasantri")}
+                >
+                  Profile
+                </button>
                 <button
                   className="dropdown-item text-danger text-center logout"
                   onClick={handleLogout}

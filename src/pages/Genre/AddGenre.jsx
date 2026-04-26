@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./AddGenre.css";
+import addImg from "../../assets/addGenre.svg";
 
 const AddGenre = () => {
   const navigate = useNavigate();
 
-  // State data User
   const [namaGenre, setNamaGenre] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
 
@@ -34,56 +34,58 @@ const AddGenre = () => {
   };
 
   return (
-    <div className="penulis-page">
-      <div className="users-header">
+    <div className="genre-container">
+      <div className="genre-header-add">
         <h3>Tambah Genre</h3>
       </div>
-      <form onSubmit={handleSubmit} className="from-wrapper">
-        <div className="from-grid">
-          <label htmlFor="namaGenre">Nama Genre</label>
-          <input
-            type="text"
-            id="namaGenre"
-            placeholder="Masukan nama genre......"
-            onChange={(e) => setNamaGenre(e.target.value)}
-            required
-          />
-          {errors.namaGenre && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.namaGenre}
-            </span>
-          )}
+
+      <div className="genre-layout">
+        <div className="genre-image">
+          <img src={addImg} alt="genre" />
         </div>
 
-        <div className="from-grid">
-          <label htmlFor="deskripsi">Deskripsi</label>
-          <input
-            type="text"
-            id="deskripsi"
-            placeholder="Masukan Deskripsi...."
-            onChange={(e) => setDeskripsi(e.target.value)}
-            required
-          />
-          {errors.deskripsi && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.deskripsi}
-            </span>
-          )}
-        </div>
+        <div className="genre-form-side">
+          <form onSubmit={handleSubmit} className="genre-form">
+            <div className="genre-field">
+              <label>Nama Genre</label>
+              <input
+                type="text"
+                placeholder="Masukan nama genre..."
+                onChange={(e) => setNamaGenre(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="btn-group">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="btn-delete"
-          >
-            Batal
-          </button>
-          <button type="submit" className="btn-tambah" disabled={loading}>
-            {loading ? "Menyimpan..." : "Simpan"}
-          </button>
+            <div className="genre-field">
+              <label>Deskripsi</label>
+              <input
+                type="text"
+                placeholder="Masukan deskripsi..."
+                onChange={(e) => setDeskripsi(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="genre-actions">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="genre-btn-cancel"
+              >
+                Batal
+              </button>
+
+              <button
+                type="submit"
+                className="genre-btn-submit"
+                disabled={loading}
+              >
+                {loading ? "Menyimpan..." : "Simpan"}
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

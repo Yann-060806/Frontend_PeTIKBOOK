@@ -1,0 +1,101 @@
+.status-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+.status-title {
+  font-weight: 600;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 25px;
+  color: #206ee4;
+}
+
+.empty-text {
+  text-align: center;
+  color: #888;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.card-buku {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #e0e0e0;
+  transition: 0.25s ease;
+}
+
+.card-buku:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+}
+
+.book-img {
+  width: 105px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #eee;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.book-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.meta-row {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.meta-label {
+  color: #999;
+  min-width: 110px;
+}
+
+.status-badge {
+  margin-top: 12px;
+}
+
+.custom-badge {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.badge-dikembalikan {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.loading-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

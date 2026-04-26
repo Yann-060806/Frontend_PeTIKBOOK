@@ -1,0 +1,109 @@
+.penulis-container {
+  width: 100%;
+}
+
+.penulis-header-add {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.penulis-header-add h3 {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.penulis-layout {
+  display: flex;
+  gap: 24px;
+}
+
+.penulis-image {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+}
+
+.penulis-image img {
+  max-width: 420px;
+  width: 100%;
+}
+
+.penulis-form-side {
+  flex: 1;
+  display: flex;
+}
+
+.penulis-form {
+  background: #f1f5f9;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.penulis-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.penulis-field label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.penulis-field input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.penulis-field input:focus {
+  border-color: #2563eb;
+}
+
+.penulis-preview {
+  margin-top: 10px;
+  width: 140px;
+  border-radius: 8px;
+}
+
+.penulis-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.penulis-btn-cancel {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.penulis-btn-submit {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+}
+
+.penulis-btn-submit:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .penulis-layout {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,90 @@
+.status-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+.status-title {
+  font-weight: 600;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-text {
+  text-align: center;
+  color: #888;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.card-buku {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #eeeeee;
+  transition: all 0.25s ease;
+}
+
+.card-buku:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
+}
+
+.book-img {
+  width: 105px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.book-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.meta-row {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.meta-label {
+  color: #999;
+  min-width: 110px;
+}
+
+.status-badge {
+  margin-top: 12px;
+}
+
+.custom-badge {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.badge-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-dipinjam {
+  background: #d1e7dd;
+  color: #0f5132;
+}

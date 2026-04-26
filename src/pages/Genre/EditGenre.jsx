@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import editPelanggan from "../../assets/monyet.png";
+import editImg from "../../assets/editGenre.svg";
 import axiosInstance from "../../utils/axiosInstance";
 import "./EditGenre.css";
 
@@ -50,54 +50,57 @@ const EditGenre = () => {
   };
 
   return (
-    <div>
-      <div className="pelanggan-header-tambah">
-        <h3>Edit Penerbit</h3>
+    <div className="edit-genre-container">
+      <div className="edit-genre-header">
+        <h3>Edit Genre</h3>
       </div>
 
-      <div className="add-pelanggan-layout">
-        <div className="image-side">
-          <img src={editPelanggan} alt="preview" />
-        </div>
-
-        <div className="form-side">
-          <form onSubmit={handleSubmit} className="from-wrapper">
-            <div className="from-grid">
-              <label htmlFor="nama_genre">Nama Genre</label>
+      <div className="edit-genre-layout">
+        <div className="edit-genre-form-side">
+          <form onSubmit={handleSubmit} className="edit-genre-form">
+            <div className="edit-genre-field">
+              <label>Nama Genre</label>
               <input
                 type="text"
-                id="nama_genre"
                 value={namaGenre}
-                placeholder="Contoh: Masukan Nama Genre...."
+                placeholder="Masukan nama genre..."
                 onChange={(e) => setNamaGenre(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
+            <div className="edit-genre-field">
               <label>Deskripsi</label>
               <input
-                type="deskripsi"
+                type="text"
                 value={deskripsi}
                 onChange={(e) => setDeskripsi(e.target.value)}
                 required
               />
             </div>
 
-            <div className="btn-group">
+            <div className="edit-genre-actions">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-delete"
+                className="edit-genre-btn-cancel"
               >
                 Batal
               </button>
 
-              <button type="submit" className="btn-tambah" disabled={loading}>
+              <button
+                type="submit"
+                className="edit-genre-btn-submit"
+                disabled={loading}
+              >
                 {loading ? "Menyimpan..." : "Simpan"}
               </button>
             </div>
           </form>
+        </div>
+
+        <div className="edit-genre-image">
+          <img src={editImg} alt="preview" />
         </div>
       </div>
     </div>

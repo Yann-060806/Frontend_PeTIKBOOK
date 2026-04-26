@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import editProduk from "../../assets/monyet.png";
+import editBuku from "../../assets/editBuku.svg";
 import axiosInstance from "../../utils/axiosInstance";
 import "./EditBuku.css";
 
@@ -115,85 +115,75 @@ const EditBuku = () => {
   };
 
   return (
-    <div>
-      <div className="buku-header-tambah">
+    <div className="buku-container">
+      <div className="buku-header-edit">
         <h3>Edit Buku</h3>
       </div>
 
-      <div className="add-buku-layout">
-        <div className="image-side">
-          <img src={editProduk} alt="preview" />
-        </div>
-
-        <div className="form-side">
-          <form onSubmit={handleSubmit} className="from-wrapper">
-            <div className="from-grid">
-              <label htmlFor="foto">Foto</label>
+      <div className="buku-layout">
+        <div className="buku-form-side">
+          <form onSubmit={handleSubmit} className="buku-form">
+            <div className="buku-field">
+              <label>Foto</label>
               <input
                 type="file"
-                id="foto"
                 accept="image/*"
                 onChange={handleChangeImage}
               />
-              {preview && <img src={preview} alt="image-preview" width={220} />}
+              {preview && (
+                <img src={preview} alt="preview" className="buku-preview" />
+              )}
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="judul_buku">Judul Buku</label>
+            <div className="buku-field">
+              <label>Judul Buku</label>
               <input
                 type="text"
-                id="judul_buku"
                 value={namaBuku}
-                placeholder="Contoh: Atomic Habits"
                 onChange={(e) => setNamaBuku(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="deskripsi">Deskripsi</label>
+            <div className="buku-field">
+              <label>Deskripsi</label>
               <input
                 type="text"
-                id="deskripsi"
                 value={deskripsi}
-                placeholder="Masukan Deskripsi......."
                 onChange={(e) => setDeskripsi(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="stok">Stok</label>
+            <div className="buku-field">
+              <label>Stok</label>
               <input
                 type="number"
-                id="stok"
                 value={stok}
                 onChange={(e) => setStok(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="tgl_terbit">Tanggal Terbit</label>
+            <div className="buku-field">
+              <label>Tanggal Terbit</label>
               <input
                 type="date"
-                id="tgl_terbit"
                 value={tanggalTerbit}
                 onChange={(e) => setTanggalTerbit(e.target.value)}
                 required
               />
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="nama_genre">Nama Genre</label>
+            <div className="buku-field">
+              <label>Genre</label>
               <select
-                id="nama_genre"
                 value={genre}
                 onChange={(e) => setGenre(e.target.value)}
                 required
               >
                 <option value="" hidden>
-                  Pilih Kategori
+                  Pilih Genre
                 </option>
                 {genreList.map((item) => (
                   <option key={item.id} value={item.id}>
@@ -203,10 +193,9 @@ const EditBuku = () => {
               </select>
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="nama_penulis">Nama Penulis</label>
+            <div className="buku-field">
+              <label>Penulis</label>
               <select
-                id="nama_penulis"
                 value={penulis}
                 onChange={(e) => setPenulis(e.target.value)}
                 required
@@ -222,10 +211,9 @@ const EditBuku = () => {
               </select>
             </div>
 
-            <div className="from-grid">
-              <label htmlFor="nama_penerbit">Nama Penerbit</label>
+            <div className="buku-field">
+              <label>Penerbit</label>
               <select
-                id="nama_penerbit"
                 value={penerbit}
                 onChange={(e) => setPenerbit(e.target.value)}
                 required
@@ -241,19 +229,28 @@ const EditBuku = () => {
               </select>
             </div>
 
-            <div className="btn-group">
+            <div className="buku-actions">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="btn-delete"
+                className="buku-btn-cancel"
               >
                 Batal
               </button>
-              <button type="submit" className="btn-tambah" disabled={loading}>
+
+              <button
+                type="submit"
+                className="buku-btn-submit"
+                disabled={loading}
+              >
                 {loading ? "Menyimpan..." : "Simpan"}
               </button>
             </div>
           </form>
+        </div>
+
+        <div className="buku-image">
+          <img src={editBuku} alt="preview" />
         </div>
       </div>
     </div>

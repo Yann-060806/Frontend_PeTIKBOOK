@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import "./AjukanPinjam.css";
+import MyNavbar from "../../components/MyNavbar/MyNavbar";
+import Footer from "../../components/Footer/Footer";
 
 const AjukanPinjam = () => {
   const navigate = useNavigate();
@@ -57,46 +60,62 @@ const AjukanPinjam = () => {
   };
 
   if (!buku) {
-    return <h3>Buku tidak ditemukan</h3>;
+    return <h3 style={{ textAlign: "center" }}>Buku tidak ditemukan</h3>;
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Ajukan Peminjaman Buku</h2>
+    <div>
+      <MyNavbar />
+      <div className="pinjam-container">
+        <h2 className="pinjam-title">Ajukan Peminjaman Buku</h2>
 
-      <div>
-        <h4>{buku.judul_buku}</h4>
-        <img src={buku.foto} width="150" />
+        <div className="pinjam-layout">
+          <div className="book-preview">
+            <h3>Detail Buku</h3>
+
+            <div className="book-box">
+              <img src={buku.foto} alt="cover" />
+
+              <div className="book-info">
+                <h4>{buku.judul_buku}</h4>
+                <p>Buku yang akan kamu pinjam</p>
+              </div>
+            </div>
+          </div>
+
+          <form className="pinjam-form" onSubmit={handleSubmit}>
+            <h3>Form Peminjaman</h3>
+
+            <div className="form-group user-box">
+              <label>User</label>
+              <input value={user?.username || ""} disabled />
+            </div>
+
+            <div className="form-group">
+              <label>Tanggal Pinjam</label>
+              <input
+                type="date"
+                onChange={(e) => setTanggalPinjam(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Tanggal Kembali</label>
+              <input
+                type="date"
+                onChange={(e) => setTanggalKembali(e.target.value)}
+                required
+              />
+            </div>
+
+            <button className="pinjam-btn" disabled={loading}>
+              {loading ? "Loading..." : "Pinjam Buku"}
+            </button>
+          </form>
+        </div>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>User</label>
-          <input value={user?.username || ""} disabled />
-        </div>
-
-        <div>
-          <label>Tanggal Pinjam</label>
-          <input
-            type="date"
-            onChange={(e) => setTanggalPinjam(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Tanggal Kembali</label>
-          <input
-            type="date"
-            onChange={(e) => setTanggalKembali(e.target.value)}
-            required
-          />
-        </div>
-
-        <button disabled={loading}>
-          {loading ? "Loading..." : "Pinjam Buku"}
-        </button>
-      </form>
+      <Footer />
     </div>
   );
 };
