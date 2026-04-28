@@ -10,6 +10,22 @@ const ApprovePeminjaman = () => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetchTransaksi();
+    getBuku();
+    getUser();
+  }, []);
+
+  // FORMAT TANGGAL INDONESIA
+  const formatTanggal = (tanggal) => {
+    if (!tanggal) return "-";
+    return new Date(tanggal).toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   const fetchTransaksi = async () => {
     try {
       const res = await axiosInstance.get("/transaksi");
@@ -43,12 +59,6 @@ const ApprovePeminjaman = () => {
       console.log(error.response);
     }
   };
-
-  useEffect(() => {
-    fetchTransaksi();
-    getBuku();
-    getUser();
-  }, []);
 
   const bukuName = (buku_id) => {
     const book = buku.find((b) => b.id === buku_id);
@@ -98,7 +108,7 @@ const ApprovePeminjaman = () => {
         showConfirmButton: false,
       });
 
-      await fetchTransaksi();
+      fetchTransaksi();
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -133,7 +143,7 @@ const ApprovePeminjaman = () => {
         showConfirmButton: false,
       });
 
-      await fetchTransaksi();
+      fetchTransaksi();
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -148,7 +158,7 @@ const ApprovePeminjaman = () => {
   return (
     <div>
       <div className="approve-header">
-        <h3>Approval Peminjaman</h3>
+        <h3>Setujui Peminjaman</h3>
       </div>
 
       <div className="table-wrapper">
@@ -172,8 +182,11 @@ const ApprovePeminjaman = () => {
                   <td>{index + 1}</td>
                   <td>{bukuName(item.buku_id)}</td>
                   <td>{userName(item.user_id)}</td>
-                  <td>{new Date(item.tgl_pinjam).toLocaleDateString()}</td>
-                  <td>{new Date(item.tgl_kembali).toLocaleDateString()}</td>
+
+                  {/* FORMAT TANGGAL DI SINI */}
+                  <td>{formatTanggal(item.tgl_pinjam)}</td>
+                  <td>{formatTanggal(item.tgl_kembali)}</td>
+
                   <td>{getBadge(item.status)}</td>
 
                   <td>

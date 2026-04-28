@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import { FaPlusCircle } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
+import Swal from "sweetalert2";
 import "./Buku.css";
 
 const Buku = () => {
@@ -10,6 +11,7 @@ const Buku = () => {
   const [penulis, setPenulis] = useState([]);
   const [penerbit, setPenerbit] = useState([]);
   const [genre, setGenre] = useState([]);
+  const [transaksi, setTransaksi] = useState([]); // 🔥 penting
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
   const navigate = useNavigate();
@@ -19,41 +21,13 @@ const Buku = () => {
     getPenulis();
     getPenerbit();
     getGenre();
+    getTransaksi();
   }, []);
 
   const getBuku = async () => {
     try {
       const result = await axiosInstance.get(`/buku`);
-
       setBuku(result.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const filterData = buku.filter((item) =>
-    item.judul_buku?.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const ITEMS_PER_PAGE = 10;
-  const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
-
-  const paginatedData = filterData.slice(
-    (currentpage - 1) * ITEMS_PER_PAGE,
-    currentpage * ITEMS_PER_PAGE,
-  );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
-
-  const handleDelete = async (id) => {
-    const msg = window.confirm("Apakah yakin ingin menghapus buku ini?");
-    if (!msg) return;
-
-    try {
-      await axiosInstance.delete(`/buku/delete/${id}`);
-      getBuku();
     } catch (error) {
       console.log(error);
     }
@@ -86,23 +60,92 @@ const Buku = () => {
     }
   };
 
-  const penulisName = (penulis_id) => {
-    const pen = penulis.find((p) => p.id === penulis_id);
-    return pen ? pen.nama_penulis : "-";
+  const getTransaksi = async () => {
+    try {
+      const result = await axiosInstance.get(`/transaksi`);
+      setTransaksi(result.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const penerbitName = (penerbit_id) => {
-    const pen = penerbit.find((p) => p.id === penerbit_id);
-    return pen ? pen.nama_penerbit : "-";
+  const handleDelete = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Yakin hapus buku?",
+      text: "Data tidak bisa dikembalikan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+    });
+
+    if (!confirm.isConfirmed) return;
+
+    const isDipakai = transaksi.some((t) => t.buku_id === id);
+
+    if (isDipakai) {
+      return Swal.fire({
+        icon: "error",
+        title: "Tidak Bisa Dihapus",
+        text: "Buku masih digunakan di transaksi!",
+      });
+    }
+
+    try {
+      await axiosInstance.delete(`/buku/delete/${id}`);
+
+      await Swal.fire({
+        icon: "success",
+        title: "Berhasil dihapus",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      getBuku();
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Gagal",
+        text: error?.response?.data?.message || "Terjadi kesalahan",
+      });
+    }
   };
 
-  const genreName = (genre_id) => {
-    const gen = genre.find((g) => g.id === genre_id);
-    return gen ? gen.nama_genre : "-";
-  };
-
-  const handleEdit = async (id) => {
+  const handleEdit = (id) => {
     navigate(`/dashboard/buku/edit/${id}`);
+  };
+
+  const filterData = buku.filter((item) =>
+    item.judul_buku?.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  const ITEMS_PER_PAGE = 10;
+  const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
+
+  const paginatedData = filterData.slice(
+    (currentpage - 1) * ITEMS_PER_PAGE,
+    currentpage * ITEMS_PER_PAGE,
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  const penulisName = (id) => {
+    const data = penulis.find((p) => p.id === id);
+    return data ? data.nama_penulis : "-";
+  };
+
+  const penerbitName = (id) => {
+    const data = penerbit.find((p) => p.id === id);
+    return data ? data.nama_penerbit : "-";
+  };
+
+  const genreName = (id) => {
+    const data = genre.find((g) => g.id === id);
+    return data ? data.nama_genre : "-";
   };
 
   return (
@@ -115,7 +158,7 @@ const Buku = () => {
       </div>
 
       <div className="table-wrapper">
-        <table border={1}>
+        <table>
           <thead>
             <tr>
               <th>No</th>
@@ -133,30 +176,33 @@ const Buku = () => {
 
           <tbody>
             {paginatedData.length > 0 ? (
-              paginatedData.map((buku, index) => (
-                <tr key={buku.id}>
+              paginatedData.map((b, index) => (
+                <tr key={b.id}>
                   <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+
                   <td>
-                    <img src={buku.foto} alt="gambar" width={100} />
+                    <img src={b.foto} alt="gambar" width={100} />
                   </td>
-                  <td>{buku.judul_buku}</td>
-                  <td>{buku.deskripsi}</td>
-                  <td>{buku.stok}</td>
-                  <td>{buku.tgl_terbit}</td>
-                  <td>{genreName(buku.genre_id)}</td>
-                  <td>{penulisName(buku.penulis_id)}</td>
-                  <td>{penerbitName(buku.penerbit_id)}</td>
+
+                  <td>{b.judul_buku}</td>
+                  <td>{b.deskripsi}</td>
+                  <td>{b.stok}</td>
+                  <td>{b.tgl_terbit}</td>
+                  <td>{genreName(b.genre_id)}</td>
+                  <td>{penulisName(b.penulis_id)}</td>
+                  <td>{penerbitName(b.penerbit_id)}</td>
 
                   <td>
                     <button
                       className="btn-edit"
-                      onClick={() => handleEdit(buku.id)}
+                      onClick={() => handleEdit(b.id)}
                     >
                       Edit
                     </button>
+
                     <button
                       className="btn-delete"
-                      onClick={() => handleDelete(buku.id)}
+                      onClick={() => handleDelete(b.id)}
                     >
                       Delete
                     </button>
@@ -165,7 +211,7 @@ const Buku = () => {
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Maaf, data buku tidak ditemukan</td>
+                <td colSpan={10}>Maaf, data buku tidak ditemukan</td>
               </tr>
             )}
           </tbody>
@@ -179,7 +225,7 @@ const Buku = () => {
             disabled={currentpage === 1}
             onClick={() => setCurrentPage((p) => p - 1)}
           >
-            &laquo; Prev
+            « Prev
           </button>
 
           {Array.from({ length: totalPages }).map((_, i) => (
@@ -198,7 +244,7 @@ const Buku = () => {
             disabled={currentpage === totalPages}
             onClick={() => setCurrentPage((p) => p + 1)}
           >
-            Next &raquo;
+            Next »
           </button>
         </div>
       )}

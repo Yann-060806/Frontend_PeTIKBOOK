@@ -1,24 +1,34 @@
 import { useEffect, useState } from "react";
-import profil from "../../assets/monyet.png";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 import "./NavbarAdmin.css";
 
 const NavbarAdmin = ({ search, setSearch }) => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
+  const [profil, setProfil] = useState("");
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
 
-  const getUserLogin = () => {
+  const getUserLogin = async () => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) return;
+
       const decoded = jwtDecode(token);
-      setUsername(decoded.username);
+      setUsername(decoded.username || "-");
+
+      const res = await axiosInstance.get("/user");
+      const users = res.data.data;
+
+      const currentUser = users.find((u) => u.username === decoded.username);
+
+      setProfil(currentUser.profil);
     } catch (error) {
       console.log(error);
     }
