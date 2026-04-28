@@ -57,12 +57,10 @@ const AddUsers = () => {
       </div>
 
       <div className="user-layout">
-        {/* IMAGE */}
         <div className="user-image">
           <img src={addImg} alt="add" />
         </div>
 
-        {/* FORM */}
         <div className="user-form-side">
           <form onSubmit={handleSubmit} className="user-form">
             <div className="user-field">
