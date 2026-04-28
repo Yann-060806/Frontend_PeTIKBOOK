@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { Badge } from "react-bootstrap";
-// import "./HistoryAdmin.css";
 
 const HistoryAdmin = () => {
   const [transaksi, setTransaksi] = useState([]);
@@ -44,20 +43,30 @@ const HistoryAdmin = () => {
     getUser();
   }, []);
 
+  const formatTanggal = (tanggal) => {
+    return new Date(tanggal).toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   const bukuName = (buku_id) => {
     const book = buku.find((b) => b.id === buku_id);
     return book ? book.judul_buku : "-";
   };
 
   const userName = (user_id) => {
-    const users = user.find((u) => u.id === user_id);
-    return users ? users.username : "-";
+    const u = user.find((item) => item.id === user_id);
+    return u ? u.username : "-";
   };
 
   const getBadge = (status) => {
     if (status === "dikembalikan")
       return <Badge bg="primary">Dikembalikan</Badge>;
-    if (status === "ditolak") return <Badge bg="success">Disetujui</Badge>;
+    if (status === "disetujui") return <Badge bg="success">Disetujui</Badge>;
+    if (status === "ditolak") return <Badge bg="danger">Ditolak</Badge>;
+
     return <Badge bg="dark">{status}</Badge>;
   };
 
@@ -93,8 +102,8 @@ const HistoryAdmin = () => {
                   <td>{index + 1}</td>
                   <td>{bukuName(item.buku_id)}</td>
                   <td>{userName(item.user_id)}</td>
-                  <td>{new Date(item.tgl_pinjam).toLocaleDateString()}</td>
-                  <td>{new Date(item.tgl_kembali).toLocaleDateString()}</td>
+                  <td>{formatTanggal(item.tgl_pinjam)}</td>
+                  <td>{formatTanggal(item.tgl_kembali)}</td>
                   <td>{getBadge(item.status)}</td>
                 </tr>
               ))
