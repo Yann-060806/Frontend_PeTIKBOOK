@@ -37,6 +37,11 @@ const AjukanPinjam = () => {
       return;
     }
 
+    if (tanggalKembali < tanggalPinjam) {
+      alert("Tanggal kembali harus setelah tanggal pinjam");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -66,6 +71,7 @@ const AjukanPinjam = () => {
   return (
     <div>
       <MyNavbar />
+
       <div className="pinjam-container">
         <h2 className="pinjam-title">Ajukan Peminjaman Buku</h2>
 
@@ -95,6 +101,7 @@ const AjukanPinjam = () => {
               <label>Tanggal Pinjam</label>
               <input
                 type="date"
+                value={tanggalPinjam}
                 onChange={(e) => setTanggalPinjam(e.target.value)}
                 required
               />
@@ -104,17 +111,29 @@ const AjukanPinjam = () => {
               <label>Tanggal Kembali</label>
               <input
                 type="date"
+                value={tanggalKembali}
                 onChange={(e) => setTanggalKembali(e.target.value)}
                 required
               />
             </div>
 
-            <button className="pinjam-btn" disabled={loading}>
-              {loading ? "Loading..." : "Pinjam Buku"}
-            </button>
+            <div className="button-group">
+              <button
+                type="button"
+                className="batal-btn"
+                onClick={() => navigate(-1)}
+              >
+                Batal
+              </button>
+
+              <button className="pinjam-btn" disabled={loading}>
+                {loading ? "Loading..." : "Pinjam Buku"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
+
       <Footer />
     </div>
   );

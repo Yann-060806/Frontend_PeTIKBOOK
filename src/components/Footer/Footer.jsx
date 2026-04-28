@@ -33,6 +33,9 @@ const Footer = () => {
               <li>
                 <NavLink to={"/statuspeminjaman"}>Pinjaman Saya</NavLink>
               </li>
+              <li>
+                <NavLink to={"/history-peminjaman"}>Riwayat Peminjaman</NavLink>
+              </li>
             </ul>
           </Col>
 

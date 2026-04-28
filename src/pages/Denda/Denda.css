@@ -144,3 +144,16 @@
   border-color: #185fa5;
   cursor: default;
 }
+
+button {
+  padding: 6px 12px;
+  background: #185fa5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}

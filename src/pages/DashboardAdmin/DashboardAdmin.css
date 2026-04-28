@@ -2,12 +2,12 @@
   padding: 24px;
   background: #f1f5f9;
   min-height: 100vh;
-  color: #206ee4;
 }
 
 .dashboard-title {
   font-size: 26px;
   font-weight: 600;
+  color: #206ee4;
   margin-bottom: 20px;
 }
 
@@ -24,23 +24,16 @@
   min-width: 180px;
   flex: 1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: 0.25s;
   border-left: 5px solid #3b82f6;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-4px);
 }
 
 .dashboard-card h4 {
   font-size: 14px;
   color: #64748b;
-  margin-bottom: 8px;
 }
 
 .dashboard-card h2 {
   font-size: 26px;
-  color: #0f172a;
 }
 
 .chart-section {
@@ -48,13 +41,20 @@
   background: #ffffff;
   padding: 20px;
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .chart-title {
+  font-size: 20px;
   margin-bottom: 15px;
-  font-size: 18px;
-  color: #1e293b;
+  color: #206ee4;
+}
+
+.custom-tooltip {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
 }
 
 .table-section {
@@ -62,21 +62,23 @@
   background: #ffffff;
   padding: 20px;
   border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.table-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #206ee4;
 }
 
 .dashboard-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
 }
 
 .dashboard-table th,
 .dashboard-table td {
   padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #e2e8f0;
-  word-wrap: break-word;
+  border-bottom: 1px solid #eee;
 }
 
 .dashboard-table tr:hover {
@@ -84,23 +86,28 @@
 }
 
 .status {
-  padding: 6px 14px;
-  border-radius: 999px;
+  padding: 6px 12px;
+  border-radius: 20px;
   font-size: 12px;
-  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background: #facc15;
+  color: white;
 }
 
 .status.dipinjam {
-  background: #facc15;
-  color: #000;
+  background: #22c55e;
+  color: white;
 }
 
 .status.dikembalikan {
-  background: #22c55e;
-  color: #fff;
+  background: #3b82f6;
+  color: white;
 }
 
 .status.lainnya {
   background: #94a3b8;
-  color: #fff;
+  color: white;
 }

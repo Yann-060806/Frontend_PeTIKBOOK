@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import "./AddUsers.css";
+import addImg from "../../assets/addPenerbit.svg";
 
 const AddUsers = () => {
   const navigate = useNavigate();
 
-  // State data User
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("user");
@@ -15,14 +15,11 @@ const AddUsers = () => {
   const [preview, setPreview] = useState(null);
 
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  useEffect(() => {}, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setErrors({});
+
     try {
       await axiosInstance.post(
         "/user/create",
@@ -39,100 +36,85 @@ const AddUsers = () => {
         },
       );
 
-      navigate(-1);
+      navigate("/dashboard/users");
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response || error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handlechangeImage = (e) => {
+  const handleImage = (e) => {
     const file = e.target.files[0];
     setProfil(file);
     setPreview(URL.createObjectURL(file));
   };
 
   return (
-    <div className="user-page">
-      <div className="users-header">
-        <h3>Tambah Kategori</h3>
+    <div className="user-container">
+      <div className="user-header">
+        <h3>Tambah User</h3>
       </div>
-      <form onSubmit={handleSubmit} className="from-wrapper">
-        <div className="from-grid">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Contoh: Budiono Siregar"
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          {errors.username && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.username}
-            </span>
-          )}
+
+      <div className="user-layout">
+        {/* IMAGE */}
+        <div className="user-image">
+          <img src={addImg} alt="add" />
         </div>
 
-        <div className="from-grid">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="*******"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {errors.password && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.password}
-            </span>
-          )}
-        </div>
+        {/* FORM */}
+        <div className="user-form-side">
+          <form onSubmit={handleSubmit} className="user-form">
+            <div className="user-field">
+              <label>Username</label>
+              <input
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="from-grid">
-          <label htmlFor="role">Role</label>
-          <select
-            value={role}
-            id="role"
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option disabled>-Pilih Role-</option>
-            <option value="pelanggan">user</option>
-            <option value="admin">Admin</option>
-          </select>
-          {errors.role && (
-            <span className="error" style={{ color: "red" }}>
-              {errors.role}
-            </span>
-          )}
-        </div>
+            <div className="user-field">
+              <label>Password</label>
+              <input
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-        <div className="from-grid">
-          <label htmlFor="profil">Gambar</label>
-          <input
-            type="file"
-            id="profil"
-            accept="image/*"
-            onChange={handlechangeImage}
-          />
-          {preview && <img src={preview} alt="image-preview" width={220} />}
-        </div>
+            <div className="user-field">
+              <label>Role</label>
+              <select onChange={(e) => setRole(e.target.value)} value={role}>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
 
-        <div className="btn-group">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="btn-delete"
-          >
-            Batal
-          </button>
-          <button type="submit" className="btn-tambah" disabled={loading}>
-            {loading ? "Menyimpan..." : "Simpan"}
-          </button>
+            <div className="user-field">
+              <label>Foto</label>
+              <input type="file" onChange={handleImage} />
+              {preview && (
+                <img src={preview} className="preview" alt="preview" />
+              )}
+            </div>
+
+            <div className="user-actions">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="btn-cancel"
+              >
+                Batal
+              </button>
+
+              <button type="submit" className="btn-submit" disabled={loading}>
+                {loading ? "Menyimpan..." : "Simpan"}
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

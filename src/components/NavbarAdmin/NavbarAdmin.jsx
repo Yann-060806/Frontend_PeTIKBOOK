@@ -53,7 +53,6 @@ const NavbarAdmin = ({ search, setSearch }) => {
 
             {open && (
               <div className="dropdown-menu-custom">
-                <button className="dropdown-item">Profile</button>
                 <button className="dropdown-item logout" onClick={handleLogout}>
                   Logout
                 </button>

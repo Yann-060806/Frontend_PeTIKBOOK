@@ -4,7 +4,6 @@ import {
   Row,
   Col,
   Card,
-  CardImg,
   CardBody,
   Button,
   Input,
@@ -25,11 +24,10 @@ const DaftarBuku = () => {
   const [kategori, setKategori] = useState([]);
   const [buku, setBuku] = useState([]);
   const [penulis, setPenulis] = useState([]);
-  const [transaksi, setTransaksi] = useState([]);
+  const [mostBorrowed, setMostBorrowed] = useState([]);
 
   const [selectedKategori, setSelectedKategori] = useState(null);
   const [search, setSearch] = useState("");
-  const [mostBorrowed, setMostBorrowed] = useState([]);
 
   useEffect(() => {
     fetchAll();
@@ -51,10 +49,8 @@ const DaftarBuku = () => {
       setKategori(resKategori.data.data);
       setBuku(bukuData);
       setPenulis(resPenulis.data.data);
-      setTransaksi(transaksiData);
 
       const countMap = {};
-
       transaksiData.forEach((t) => {
         countMap[t.buku_id] = (countMap[t.buku_id] || 0) + 1;
       });
@@ -69,13 +65,13 @@ const DaftarBuku = () => {
 
       setMostBorrowed(sorted);
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
   };
 
-  const namePenulis = (penulis_id) => {
-    const foundPenulis = penulis.find((p) => p.id === penulis_id);
-    return foundPenulis ? foundPenulis.nama_penulis : "-";
+  const namePenulis = (id) => {
+    const found = penulis.find((p) => p.id === id);
+    return found ? found.nama_penulis : "-";
   };
 
   const filteredBuku = buku.filter((b) => {
@@ -84,11 +80,9 @@ const DaftarBuku = () => {
       : true;
 
     const keyword = search.toLowerCase();
-    const judul = b.judul_buku.toLowerCase();
-    const penulisNama = namePenulis(b.penulis_id).toLowerCase();
-
     const matchSearch =
-      judul.includes(keyword) || penulisNama.includes(keyword);
+      b.judul_buku.toLowerCase().includes(keyword) ||
+      namePenulis(b.penulis_id).toLowerCase().includes(keyword);
 
     return matchKategori && matchSearch;
   });
@@ -153,31 +147,41 @@ const DaftarBuku = () => {
       </Container>
 
       <Container className="mt-5">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h4 className="fw-bold">Rekomendasi</h4>
-        </div>
+        <h4 className="fw-bold mb-4">Rekomendasi</h4>
 
         <Row>
           {mostBorrowed.length > 0 ? (
             mostBorrowed.map((book) => (
               <Col key={book.id} xs="6" md="4" lg="2" className="mb-4">
                 <Card className="book-card border-0 shadow-sm">
-                  <CardImg top src={book.foto} alt={book.judul_buku} />
-                  <CardBody className="p-2">
-                    <h6 className="mb-0 text-truncate">{book.judul_buku}</h6>
-                    <p className="text-muted x-small mb-1">
-                      {namePenulis(book.penulis_id)}
-                    </p>
+                  <div className="book-img-wrapper">
+                    <img src={book.foto} alt={book.judul_buku} />
 
-                    <div className="d-flex justify-content-between align-items-center">
-                      <small className="text-warning">★★★★</small>
+                    <div className="overlay">
+                      <button
+                        className="detail-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/detail-buku/${book.id}`);
+                        }}
+                      >
+                        DETAIL BUKU
+                      </button>
+                    </div>
+                  </div>
+
+                  <CardBody className="p-2">
+                    <h6 className="text-truncate">{book.judul_buku}</h6>
+                    <p>{namePenulis(book.penulis_id)}</p>
+
+                    <div className="d-flex justify-content-between">
+                      <small>★★★★</small>
                       <button
                         className="btn-pinjam"
-                        style={{
-                          borderRadius: "40px",
-                          fontSize: "10px",
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate("/peminjaman", { state: book });
                         }}
-                        onClick={() => navigate("/peminjaman", { state: book })}
                       >
                         pinjam
                       </button>
@@ -199,22 +203,34 @@ const DaftarBuku = () => {
           {filteredBuku.map((book) => (
             <Col key={book.id} xs="6" md="4" lg="2" className="mb-4">
               <Card className="book-card border-0 shadow-sm">
-                <CardImg top src={book.foto} alt={book.judul_buku} />
-                <CardBody className="p-2">
-                  <h6 className="mb-0 text-truncate">{book.judul_buku}</h6>
-                  <p className="text-muted x-small mb-1">
-                    {namePenulis(book.penulis_id)}
-                  </p>
+                <div className="book-img-wrapper">
+                  <img src={book.foto} />
 
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-warning">★★★★</small>
+                  <div className="overlay">
+                    <button
+                      className="detail-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/detail-buku/${book.id}`);
+                      }}
+                    >
+                      DETAIL BUKU
+                    </button>
+                  </div>
+                </div>
+
+                <CardBody className="p-2">
+                  <h6>{book.judul_buku}</h6>
+                  <p>{namePenulis(book.penulis_id)}</p>
+
+                  <div className="d-flex justify-content-between">
+                    <small>★★★★</small>
                     <button
                       className="btn-pinjam"
-                      style={{
-                        borderRadius: "40px",
-                        fontSize: "10px",
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate("/peminjaman", { state: book });
                       }}
-                      onClick={() => navigate("/peminjaman", { state: book })}
                     >
                       pinjam
                     </button>
@@ -225,6 +241,7 @@ const DaftarBuku = () => {
           ))}
         </Row>
       </Container>
+
       <Footer />
     </div>
   );

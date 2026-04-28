@@ -1,11 +1,9 @@
-/* ================= BODY & WRAPPER ================= */
 .daftar-buku-wrapper {
   background-color: #f8faff;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
 }
 
-/* ================= BANNER ================= */
 .banner-section {
   display: flex;
   flex-direction: column;
@@ -17,7 +15,7 @@
 
 .banner-content {
   display: flex;
-  flex-direction: column; /* Banner di atas, tulisan di bawah */
+  flex-direction: column;
   align-items: center;
   text-align: center;
   max-width: 900px;
@@ -50,10 +48,9 @@
   font-weight: 700;
 }
 
-/* ================= SEARCH BOX ================= */
 .search-box-container {
   max-width: 700px;
-  margin: 20px auto 30px auto; /* margin atas positif agar tidak kepotong */
+  margin: 20px auto 30px auto;
   padding: 20px 30px;
   background: #4a90e2;
   border-radius: 60px;
@@ -88,12 +85,11 @@
   background: #0b5ed7;
 }
 
-/* ================= FILTER SCROLL ================= */
 .filter-scroll {
   display: flex;
   gap: 10px;
   overflow-x: auto;
-  padding: 10px 0 20px 0; /* padding bawah supaya tidak kepotong */
+  padding: 10px 0 20px 0;
 }
 
 .filter-scroll::-webkit-scrollbar {
@@ -116,7 +112,6 @@
   border-color: #0d6efd;
 }
 
-/* ================= BOOK CARD ================= */
 .book-card {
   transition:
     transform 0.3s ease,
@@ -139,10 +134,59 @@
   border-radius: 12px 12px 0 0;
 }
 
+.book-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.book-img-wrapper img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.book-img-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.book-img-wrapper:hover .overlay {
+  opacity: 1;
+}
+
+.detail-btn {
+  background: #206ee4;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.detail-btn:hover {
+  background: #347deb;
+  color: white;
+}
+
 .book-card h6 {
   font-size: 0.95rem;
   font-weight: 600;
-  text-align: center; /* supaya judul center */
+  text-align: center;
   margin: 10px 0 5px 0;
 }
 
@@ -168,7 +212,6 @@
   background-color: #0b5ed7;
 }
 
-/* ================= RESPONSIVE ================= */
 @media (max-width: 992px) {
   .book-card img {
     height: 200px;

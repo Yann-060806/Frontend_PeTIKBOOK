@@ -19,7 +19,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: #185fa5;
+  background: #206ee4;
   color: #ffffff;
   font-size: 13px;
   font-weight: 500;
@@ -30,7 +30,7 @@
 }
 
 .buku-header a:hover {
-  background: #0c447c;
+  background: #4e8cea;
 }
 
 .table-wrapper {

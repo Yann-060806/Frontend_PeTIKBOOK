@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import Swal from "sweetalert2";
 import "./Denda.css";
 
 const Denda = () => {
@@ -8,19 +9,20 @@ const Denda = () => {
   const [currentpage, setCurrentPage] = useState(1);
   const { search } = useOutletContext();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    getGenre();
+    getDenda();
   }, []);
 
-  const getGenre = async () => {
+  const getDenda = async () => {
     setLoading(true);
     try {
       const result = await axiosInstance.get("/denda");
-      console.log(result.data);
+      const data = result.data.data;
 
-      setDenda(result.data.data);
+      const belumDibayar = data.filter((d) => d.status !== "dibayar");
+
+      setDenda(belumDibayar);
     } catch (error) {
       console.log(error);
     } finally {
@@ -28,23 +30,55 @@ const Denda = () => {
     }
   };
 
-  const filterData = denda.filter((denda) => {
-    return denda.status?.toLowerCase().includes(search.toLowerCase());
-  });
+  const handleSelesai = async (id) => {
+    const confirm = await Swal.fire({
+      title: "Yakin mau menyelesaikan denda?",
+      text: "Status akan berubah menjadi dibayar",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#185fa5",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Selesaikan",
+      cancelButtonText: "Batal",
+    });
 
-  // Untuk Mencari Total Halaman
+    if (!confirm.isConfirmed) return;
+
+    try {
+      await axiosInstance.patch(`/denda/edit/${id}`, {
+        status: "dibayar",
+      });
+
+      await Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Denda sudah diselesaikan",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      getDenda();
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Gagal",
+        text: "Gagal mengupdate denda",
+      });
+    }
+  };
+
+  const filterData = denda.filter((d) =>
+    d.status?.toLowerCase().includes(search.toLowerCase()),
+  );
+
   const ITEMS_PER_PAGE = 10;
-  const totalPages = Math.ceil(filterData.length / ITEMS_PER_PAGE);
 
-  // slice(mulai, selesai)
   const paginatedData = filterData.slice(
     (currentpage - 1) * ITEMS_PER_PAGE,
     currentpage * ITEMS_PER_PAGE,
   );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
 
   return (
     <div>
@@ -53,66 +87,38 @@ const Denda = () => {
       </div>
 
       <div className="table-wrapper">
-        <table border={1}>
+        <table>
           <thead>
             <tr>
               <th>No</th>
-              <th>Total Denda</th>
+              <th>Total</th>
               <th>Status</th>
               <th>Transaksi</th>
               <th>Aksi</th>
             </tr>
           </thead>
+
           <tbody>
             {paginatedData.length > 0 ? (
-              paginatedData.map((d, index) => (
-                <tr key={index}>
-                  <td>{(currentpage - 1) * ITEMS_PER_PAGE + index + 1}</td>
+              paginatedData.map((d, i) => (
+                <tr key={d.id}>
+                  <td>{(currentpage - 1) * ITEMS_PER_PAGE + i + 1}</td>
                   <td>{d.total_denda}</td>
                   <td>{d.status}</td>
                   <td>{d.transaksi_id}</td>
                   <td>
-                    <button>Selesai</button>
+                    <button onClick={() => handleSelesai(d.id)}>Selesai</button>
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan={7}>Maaf, data denda tidak ditemukan</td>
+                <td colSpan="5">Tidak ada data denda</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            className="btn-page"
-            disabled={currentpage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
-          >
-            &laquo; Prev
-          </button>
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button
-              className="btn-page"
-              disabled={currentpage === i + 1}
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button
-            className="btn-page"
-            disabled={currentpage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
-          >
-            &raquo; Next
-          </button>
-        </div>
-      )}
     </div>
   );
 };

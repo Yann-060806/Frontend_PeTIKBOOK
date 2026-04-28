@@ -43,22 +43,35 @@ const DashboardAdmin = () => {
         dipinjam,
       });
 
-      const grouped = {};
+      const last7Days = {};
+      const today = new Date();
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+        const key = d.toISOString().slice(0, 10);
+        last7Days[key] = 0;
+      }
 
       trx.forEach((t) => {
-        const tanggal = t.createdAt?.slice(0, 10);
-
-        if (!grouped[tanggal]) {
-          grouped[tanggal] = 0;
+        const tgl = t.createdAt?.slice(0, 10);
+        if (last7Days.hasOwnProperty(tgl)) {
+          last7Days[tgl]++;
         }
-
-        grouped[tanggal]++;
       });
 
-      const chart = Object.keys(grouped).map((tgl) => ({
-        tanggal: tgl,
-        total: grouped[tgl],
-      }));
+      const chart = Object.keys(last7Days).map((tgl) => {
+        const dateObj = new Date(tgl);
+
+        return {
+          tanggal: dateObj.toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+          total: last7Days[tgl],
+        };
+      });
 
       setChartData(chart);
     } catch (err) {
@@ -66,19 +79,31 @@ const DashboardAdmin = () => {
     }
   };
 
-  const bukuName = (buku_id) => {
-    const book = buku.find((b) => b.id == buku_id);
-    return book ? book.judul_buku : "-";
+  const bukuName = (id) => {
+    const b = buku.find((x) => x.id == id);
+    return b ? b.judul_buku : "-";
   };
 
-  const userName = (user_id) => {
-    const u = user.find((u) => u.id == user_id);
+  const userName = (id) => {
+    const u = user.find((x) => x.id == id);
     return u ? u.username : "-";
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p>{label}</p>
+          <p>Total: {payload[0].value}</p>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="dashboard-container">
@@ -92,15 +117,16 @@ const DashboardAdmin = () => {
       </div>
 
       <div className="chart-section">
-        <h2 className="chart-title">Grafik Peminjaman</h2>
+        <h2 className="chart-title">Grafik Peminjaman </h2>
+
         <div style={{ width: "100%", height: 300 }}>
           <ResponsiveContainer>
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="tanggal" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" />
-              <Tooltip />
-              <Line type="monotone" dataKey="total" stroke="#38bdf8" />
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="tanggal" />
+              <YAxis />
+              <Tooltip content={<CustomTooltip />} />
+              <Line type="monotone" dataKey="total" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -108,26 +134,43 @@ const DashboardAdmin = () => {
 
       <div className="table-section">
         <h2>Transaksi Terbaru</h2>
+
         <table className="dashboard-table">
           <thead>
             <tr>
+              <th>No</th>
               <th>User</th>
               <th>Buku</th>
               <th>Status</th>
               <th>Tanggal</th>
             </tr>
           </thead>
+
           <tbody>
-            {transaksi.slice(0, 5).map((t, i) => (
-              <tr key={i}>
-                <td>{userName(t.user_id)}</td>
-                <td>{bukuName(t.buku_id)}</td>
-                <td>
-                  <StatusBadge status={t.status} />
-                </td>
-                <td>{t.createdAt?.slice(0, 10)}</td>
-              </tr>
-            ))}
+            {transaksi
+              .slice()
+              .sort(
+                (a, b) =>
+                  new Date(b.createdAt || 0) - new Date(a.createdAt || 0),
+              )
+              .slice(0, 5)
+              .map((t, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
+                  <td>{userName(t.user_id)}</td>
+                  <td>{bukuName(t.buku_id)}</td>
+                  <td>
+                    <StatusBadge status={t.status} />
+                  </td>
+                  <td>
+                    {new Date(t.createdAt).toLocaleDateString("id-ID", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -143,7 +186,15 @@ const Card = ({ title, value }) => (
 );
 
 const StatusBadge = ({ status }) => {
-  return <span className={`status ${status || "lainnya"}`}>{status}</span>;
+  const statusMap = {
+    pending: "pending",
+    dipinjam: "dipinjam",
+    dikembalikan: "dikembalikan",
+  };
+
+  return (
+    <span className={`status ${statusMap[status] || "lainnya"}`}>{status}</span>
+  );
 };
 
 export default DashboardAdmin;

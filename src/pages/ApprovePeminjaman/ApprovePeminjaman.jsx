@@ -186,7 +186,7 @@ const ApprovePeminjaman = () => {
                     </button>
 
                     <button
-                      className="btn-delete"
+                      className="btn-selesai"
                       disabled={item.status !== "dipinjam"}
                       onClick={() => handleSelesai(item.id)}
                     >

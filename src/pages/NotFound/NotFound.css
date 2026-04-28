@@ -1,0 +1,55 @@
+.notfound-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9;
+}
+
+.notfound-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 350px;
+}
+
+.notfound-code {
+  font-size: 72px;
+  font-weight: bold;
+  color: #206ee4;
+  margin: 0;
+}
+
+.notfound-text {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.notfound-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-back,
+.btn-home {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-back {
+  background: #206ee4;
+  color: white;
+}
+
+.btn-back:hover {
+  background: #4e8cea;
+}

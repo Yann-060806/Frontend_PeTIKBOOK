@@ -9,6 +9,7 @@ import {
   FaChevronDown,
   FaList,
   FaHistory,
+  FaMoneyBillWave,
 } from "react-icons/fa";
 import { IoStatsChartSharp } from "react-icons/io5";
 import { useState } from "react";
@@ -49,7 +50,16 @@ const Sidebar = () => {
             to="/dashboard/denda"
             className={({ isActive }) => (isActive ? "active-link" : "")}
           >
-            <FaUser /> Denda
+            <FaMoneyBillWave /> Denda
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/dashboard/riwayat-denda"
+            className={({ isActive }) => (isActive ? "active-link" : "")}
+          >
+            <FaHistory /> Riwayat Denda
           </NavLink>
         </li>
 
@@ -65,32 +75,58 @@ const Sidebar = () => {
           {openMaster && (
             <ul className="submenu">
               <li>
-                <NavLink to="/dashboard/buku">
+                <NavLink
+                  to="/dashboard/buku"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaBook /> Buku
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/penulis">
+                <NavLink
+                  to="/dashboard/penulis"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaPen /> Penulis
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/penerbit">
+                <NavLink
+                  to="/dashboard/penerbit"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaBuilding /> Penerbit
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/genre">
+                <NavLink
+                  to="/dashboard/genre"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaList /> Genre
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/users">
+                <NavLink
+                  to="/dashboard/users"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaUser /> User
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/history/admin">
+                <NavLink
+                  to="/dashboard/mahasantri"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
+                  <FaUser /> Mahasantri
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/history/admin"
+                  className={({ isActive }) => (isActive ? "active-link" : "")}
+                >
                   <FaHistory /> History
                 </NavLink>
               </li>

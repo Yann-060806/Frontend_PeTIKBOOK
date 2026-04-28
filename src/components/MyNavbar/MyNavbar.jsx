@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink as RRNavLink, Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
@@ -7,16 +7,51 @@ import {
   NavItem,
   NavLink,
   Container,
-  Badge,
+  NavbarToggler,
+  Collapse,
 } from "reactstrap";
+import { jwtDecode } from "jwt-decode";
+import axiosInstance from "../../utils/axiosInstance";
+
 import "./MyNavbar.css";
-import monyet from "../../assets/monyet.png";
 import logo from "../../assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const MyNavbar = () => {
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [userFoto, setUserFoto] = useState("");
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const decoded = jwtDecode(token);
+      const userId = decoded.id;
+
+      const res = await axiosInstance.get("/mahasantri");
+      const data = res.data.data;
+
+      const myData = data.find(
+        (item) => Number(item.user_id) === Number(userId),
+      );
+
+      console.log("NAVBAR USER:", myData);
+
+      if (myData?.user?.profil) {
+        setUserFoto(myData.user.profil); // 🔥 ini sudah full URL
+      }
+    } catch (error) {
+      console.log("ERROR NAVBAR:", error);
+    }
+  };
 
   const navLinkStyle = ({ isActive }) => ({
     color: isActive ? "#adff2f" : "#ffffff",
@@ -36,7 +71,7 @@ const MyNavbar = () => {
       <div style={{ width: "100%", maxWidth: "900px" }}>
         <Navbar
           expand="md"
-          className="navbar-pill px-4 py-2 shadow-sm d-flex align-items-center"
+          className="navbar-pill px-4 py-2 shadow-sm d-flex align-items-center flex-wrap"
         >
           <NavbarBrand tag={Link} to="/home" className="text-white me-auto">
             <img
@@ -49,55 +84,47 @@ const MyNavbar = () => {
             </span>
           </NavbarBrand>
 
-          <Nav className="mx-auto d-flex flex-row" navbar>
-            <NavItem>
-              <NavLink
-                tag={RRNavLink}
-                to="/home"
-                style={navLinkStyle}
-                className="px-3"
-              >
-                Home
-              </NavLink>
-            </NavItem>
+          <NavbarToggler onClick={() => setMenuOpen(!menuOpen)} />
 
-            <NavItem className="position-relative">
-              <NavLink
-                tag={RRNavLink}
-                to="/statuspeminjaman"
-                style={navLinkStyle}
-                className="px-3 d-flex align-items-center"
-              >
-                Pinjaman Saya
-              </NavLink>
-            </NavItem>
+          <Collapse isOpen={menuOpen} navbar>
+            <Nav className="mx-auto d-flex flex-column flex-md-row" navbar>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/home" style={navLinkStyle}>
+                  Home
+                </NavLink>
+              </NavItem>
 
-            <NavItem className="position-relative">
-              <NavLink
-                tag={RRNavLink}
-                to="/history-peminjaman"
-                style={navLinkStyle}
-                className="px-3 d-flex align-items-center"
-              >
-                Riwayat Peminjaman
-              </NavLink>
-            </NavItem>
+              <NavItem>
+                <NavLink
+                  tag={RRNavLink}
+                  to="/statuspeminjaman"
+                  style={navLinkStyle}
+                >
+                  Pinjaman Saya
+                </NavLink>
+              </NavItem>
 
-            <NavItem>
-              <NavLink
-                tag={RRNavLink}
-                to="/daftarbuku"
-                style={navLinkStyle}
-                className="px-3"
-              >
-                Daftar Buku
-              </NavLink>
-            </NavItem>
-          </Nav>
+              <NavItem>
+                <NavLink
+                  tag={RRNavLink}
+                  to="/history-peminjaman"
+                  style={navLinkStyle}
+                >
+                  Riwayat Peminjaman
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/daftarbuku" style={navLinkStyle}>
+                  Daftar Buku
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
 
           <div className="ms-auto d-flex align-items-center position-relative">
             <img
-              src={monyet}
+              src={userFoto}
               alt="User"
               className="rounded-circle avatar"
               onClick={() => setOpen(!open)}
@@ -111,6 +138,7 @@ const MyNavbar = () => {
                 >
                   Profile
                 </button>
+
                 <button
                   className="dropdown-item text-danger text-center logout"
                   onClick={handleLogout}

@@ -4,7 +4,11 @@ import DaftarBuku from "./pages/DaftarBuku/DaftarBuku.jsx";
 import Login from "./pages/Login/Login.jsx";
 import DashboardLayout from "./pages/DashboardLayout/DashboardLayout.jsx";
 import Users from "./pages/Users/Users.jsx";
+import Mahasantri from "./pages/Mahasantri/Mahasantri.jsx";
+import AddMahasantri from "./pages/Mahasantri/AddMahasantri.jsx";
+import EditMahasantri from "./pages/Mahasantri/EditMahasantri.jsx";
 import AddUsers from "./pages/Users/AddUsers.jsx";
+import EditUsers from "./pages/Users/EditUsers.jsx";
 import AjukanPinjam from "./pages/AjukanPinjam/AjukanPinjam.jsx";
 import StatusPeminjaman from "./pages/StatusPeminjaman/StatusPeminjaman.jsx";
 import Penulis from "./pages/Penulis/Penulis.jsx";
@@ -25,10 +29,13 @@ import DashboardAdmin from "./pages/DashboardAdmin/DashboardAdmin.jsx";
 import Denda from "./pages/Denda/Denda.jsx";
 import ProfilUser from "./pages/ProfilUser/ProfilUser.jsx";
 import DetailBuku from "./pages/DetailBuku/DetailBuku.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
+import RiwayatDenda from "./pages/RiwayatDenda/RiwayatDenda.jsx";
 
 import { ToastContainer } from "react-toastify";
 import HistoryUser from "./pages/HistoryUser/HistoryUser.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/ProtectRoute/ProtectRoute.jsx";
 
 function App() {
   return (
@@ -44,7 +51,14 @@ function App() {
         <Route path="/profil-mahasantri" element={<ProfilUser />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardAdmin />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <DashboardAdmin />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Buku */}
           <Route path="buku" element={<Buku />} />
@@ -69,6 +83,12 @@ function App() {
           {/* Users */}
           <Route path="users" element={<Users />} />
           <Route path="users/add" element={<AddUsers />} />
+          <Route path="users/edit/:id" element={<EditUsers />} />
+
+          {/* Mahasantri */}
+          <Route path="mahasantri" element={<Mahasantri />} />
+          <Route path="mahasantri/add" element={<AddMahasantri />} />
+          <Route path="mahasantri/edit/:id" element={<EditMahasantri />} />
 
           {/* Approve */}
           <Route path="approve" element={<ApprovePeminjaman />} />
@@ -78,7 +98,9 @@ function App() {
 
           {/* Denda */}
           <Route path="denda" element={<Denda />} />
+          <Route path="riwayat-denda" element={<RiwayatDenda />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <ToastContainer position="top-right" autoClose={2000} theme="colored" />

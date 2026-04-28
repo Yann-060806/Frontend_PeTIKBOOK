@@ -1,0 +1,53 @@
+.riwayat-container {
+  padding: 24px;
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+.riwayat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.riwayat-header h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #206ee4;
+}
+
+.riwayat-wrapper {
+  background: #ffffff;
+  border: 0.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.riwayat-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.riwayat-wrapper thead tr {
+  background: #f0f4f8;
+}
+
+.riwayat-wrapper th {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.riwayat-wrapper td {
+  padding: 11px 14px;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+}
+
+.riwayat-wrapper tbody tr:hover {
+  background: #f7fafd;
+}

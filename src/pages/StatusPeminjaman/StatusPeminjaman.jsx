@@ -26,6 +26,16 @@ const StatusPeminjaman = () => {
     );
   };
 
+  const formatTanggal = (tanggal) => {
+    if (!tanggal) return "-";
+
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(tanggal));
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -87,21 +97,18 @@ const StatusPeminjaman = () => {
               return (
                 <div key={item.id} className="card-buku">
                   <img src={buku?.foto} alt="cover" className="book-img" />
+
                   <div className="card-content">
                     <h4 className="book-title">{buku?.judul_buku}</h4>
 
                     <div className="meta-row">
                       <span className="meta-label">Tgl. Pinjam</span>
-                      <span>
-                        {new Date(item.tgl_pinjam).toLocaleDateString("id-ID")}
-                      </span>
+                      <span>{formatTanggal(item.tgl_pinjam)}</span>
                     </div>
 
                     <div className="meta-row">
                       <span className="meta-label">Tgl. Kembali</span>
-                      <span>
-                        {new Date(item.tgl_kembali).toLocaleDateString("id-ID")}
-                      </span>
+                      <span>{formatTanggal(item.tgl_kembali)}</span>
                     </div>
 
                     <div className="status-badge">

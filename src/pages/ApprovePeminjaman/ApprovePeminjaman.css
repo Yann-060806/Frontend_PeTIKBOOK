@@ -46,3 +46,23 @@
 .table-wrapper tbody tr:hover {
   background: #f7fafd;
 }
+
+.btn-selesai {
+  background-color: #a0f0b3 !important;
+  color: #146828 !important;
+  border: none !important;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer !important;
+  margin-left: 6px;
+  transition: 0.2s ease;
+}
+
+.btn-selesai:hover {
+  background-color: #7fc58f !important;
+}
+
+.btn-selesai:disabled {
+  background: #c7c7c7;
+  cursor: not-allowed;
+}

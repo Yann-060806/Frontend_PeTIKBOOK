@@ -1,79 +1,67 @@
-.user-container {
+.edituser-container {
   width: 100%;
-  font-family: "Poppins", sans-serif;
 }
 
-.user-header {
-  text-align: center;
+.edituser-header {
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
-.user-header h3 {
-  color: #2563eb;
+.edituser-header h3 {
+  color: #3b82f6;
   font-weight: 700;
 }
 
-.user-layout {
+.edituser-layout {
   display: flex;
   gap: 24px;
 }
 
-/* IMAGE */
-.user-image {
+.edituser-form-side {
   flex: 1;
-  background: #f1f5f9;
-  border-radius: 12px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 500px;
 }
 
-.user-image img {
-  width: 100%;
-  max-width: 400px;
-}
-
-/* FORM */
-.user-form-side {
-  flex: 1;
-}
-
-.user-form {
+.edituser-form {
   background: #f1f5f9;
   padding: 30px;
   border-radius: 12px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.user-field {
+.edituser-field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
-.user-field label {
+.edituser-field label {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
-.user-field input,
-.user-field select {
+.edituser-field input,
+.edituser-field select {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
 }
 
-.preview {
+.edituser-field input:focus {
+  border-color: #2563eb;
+}
+
+.edituser-preview {
   margin-top: 10px;
-  width: 120px;
+  width: 140px;
   border-radius: 8px;
 }
 
-/* BUTTON */
-.user-actions {
+.edituser-actions {
   display: flex;
   gap: 10px;
   margin-top: auto;
@@ -100,8 +88,22 @@
   background: #1d4ed8;
 }
 
+.edituser-image {
+  flex: 1;
+  background: #f1f5f9;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edituser-image img {
+  max-width: 400px;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
-  .user-layout {
+  .edituser-layout {
     flex-direction: column;
   }
 }

@@ -1,0 +1,83 @@
+.mahasantri-container {
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.mahasantri-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mahasantri-header a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #206ee4;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.mahasantri-header a:hover {
+  background: #4e8cea;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #206ee4;
+  margin: 0;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  background: #f0f4f8;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #555;
+}
+
+td {
+  padding: 12px;
+  border-top: 1px solid #eee;
+}
+
+tr:hover {
+  background: #f7fafd;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #b52a37;
+}
