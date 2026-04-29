@@ -9,11 +9,10 @@
 }
 
 .mahasantri-header-edit h3 {
-  color: #f59e0b; /* beda biar keliatan edit mode */
+  color: #f59e0b;
   font-weight: 700;
 }
 
-/* INI BEDANYA: REVERSE LAYOUT */
 .mahasantri-layout {
   display: flex;
   flex-direction: row-reverse;
