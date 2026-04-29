@@ -16,8 +16,11 @@ const Footer = () => {
               PeTik<span className="text-primary">Book</span>
             </h4>
             <p className="footer-desc">
-              Perpustakaan digital modern untuk generasi masa kini. Akses buku
-              kapan saja dan di mana saja.
+              Perpustakaan digital modern untuk generasi masa kini yang
+              menghadirkan kemudahan mengakses dan meminjam koleksi buku. Dengan
+              teknologi, petikBOOK memungkinkan pengguna mencari dan melakukan
+              peminjaman buku kapan saja dan di mana saja. Nikmati pengalaman
+              peminjaman buku yang praktis, fleksibel, dan terintegrasi.
             </p>
           </Col>
 

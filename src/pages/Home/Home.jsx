@@ -61,8 +61,9 @@ const Home = () => {
                 untuk <span style={{ color: "#4E8CEA" }}>Generasi Digital</span>
               </h1>
               <p className="text-muted">
-                PeTikBook by Student PeTiK adalah layanan perpustakaan
-                digital...
+                PeTIKBook adalah layanan perpustakaan digital yang dirancang dan
+                dikembangkan oleh Mahasantri PeTIK untuk memenuhi kebutuhan
+                khusus anda.
               </p>
               <Button
                 color="primary"

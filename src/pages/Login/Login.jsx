@@ -104,7 +104,7 @@ export default function Login() {
           <div className="form-wrapper">
             <h3>Selamat Datang</h3>
             <h1>
-              <span>PeTiK Book</span>
+              <span>PeTIKBook</span>
             </h1>
 
             <form onSubmit={handleSubmit} className="login-form">

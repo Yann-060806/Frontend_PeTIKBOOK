@@ -46,7 +46,7 @@ const MyNavbar = () => {
       console.log("NAVBAR USER:", myData);
 
       if (myData?.user?.profil) {
-        setUserFoto(myData.user.profil); // 🔥 ini sudah full URL
+        setUserFoto(myData.user.profil);
       }
     } catch (error) {
       console.log("ERROR NAVBAR:", error);
@@ -80,7 +80,7 @@ const MyNavbar = () => {
               style={{ width: "25px", height: "25px", marginRight: "10px" }}
             />
             <span style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-              PeTikBook
+              PeTIkBook
             </span>
           </NavbarBrand>
 
